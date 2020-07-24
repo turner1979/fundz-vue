@@ -1,29 +1,40 @@
-# fdz-vue
+# Fundz App - Vue
 
-## Project setup
-```
-npm install
-```
+Fundz is a [demo app](http://www.scottturner.co.uk/examples/fundz/fundz-vue) which allows users to create one or more
+funding targets to track their progress towards them.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Users can perform the following tasks:
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- Add fund
+- View all funds
+- View individual fund
+- Update fund
+- Delete fund
+- Change colour assigned to fund
 
-### Run your unit tests
-```
-npm run test:unit
-```
+Data is not persisted with a backend database, it's saved on local storage for simplicity of demo.
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Notes
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The app demonstrates the use of the following:
+
+TODO
+
+## Stack Used
+
+- Vue
+- SCSS
+
+## Other Versions
+
+- Angular - [ [App](http://www.scottturner.co.uk/examples/fundz/fundz-angular) | [Code](https://github.com/turner1979/fundz-angular) ]
+- AngularJS - (coming soon)
+- Angular + NgRx - (coming soon)
+- Bit - (coming soon)
+- React - (coming soon)
+- React + Redux - (coming soon)
+- Svelte - (coming soon)
+
+## Running the App Locally
+
+After cloning the repo run `npm run serve` from the cmd line and open `http://localhost8080/` in your browser..
