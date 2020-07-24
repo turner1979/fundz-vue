@@ -4,12 +4,14 @@
       <FdzLogo class="fdz-home__logo" alt />
       <FdzVersion class="fdz-home__version" />
       <FdzButton class="fdz-home__button" text="View App" type="button" />
+      <FdzFooter />
     </div>
   </div>
 </template>
 
 <script>
 import FdzButton from '@/components/FdzButton.vue'
+import FdzFooter from '@/components/FdzFooter.vue'
 import FdzLogo from '@/components/FdzLogo.vue'
 import FdzVersion from '@/components/FdzVersion.vue'
 
@@ -17,6 +19,7 @@ export default {
   name: 'Home',
   components: {
     FdzButton,
+    FdzFooter,
     FdzLogo,
     FdzVersion
   }
