@@ -1,13 +1,19 @@
 <template>
   <div class="fdz-version">
     <div class="fdz-version__logo"></div>
-    <p>This version of the fundz app was built with <strong>Vue v?.?.?</strong></p>
+    <p>This version of the fundz app was built with <strong>Vue v{{ version }}</strong></p>
   </div>
 </template>
 
 <script lang="ts">
-export default {
+import { Vue } from 'vue-property-decorator'
 
+export default {
+  data () {
+    return {
+      version: Vue.version
+    }
+  }
 }
 </script>
 
