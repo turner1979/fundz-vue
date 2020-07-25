@@ -1,13 +1,18 @@
 <template>
   <div class="fdz-footer">
-    <p>Copyright &copy; TODO: year</p>
+    <p>Copyright &copy; {{ year === startYear ? startYear : startYear + ' - ' + year }}</p>
     <a href="http://www.scottturner.co.uk" target="_blank">www.scottturner.co.uk</a>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-
+  data () {
+    return {
+      startYear: 2020,
+      year: new Date().getFullYear()
+    }
+  }
 }
 </script>
 
