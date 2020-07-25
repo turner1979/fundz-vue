@@ -1,7 +1,16 @@
 <template>
   <div class="fdz-fund">
-
-      fund view
-
+    <FdzHeader />
   </div>
 </template>
+
+<script lang="ts">
+import FdzHeader from '../components/FdzHeader.vue'
+
+export default {
+  name: 'Fund',
+  components: {
+    FdzHeader
+  }
+}
+</script>

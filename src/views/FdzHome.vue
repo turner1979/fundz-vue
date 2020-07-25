@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import FdzButton from '@/components/FdzButton.vue'
 import FdzFooter from '@/components/FdzFooter.vue'
 import FdzLogo from '@/components/FdzLogo.vue'
