@@ -3,7 +3,9 @@
     <div class="fdz-home__content">
       <FdzLogo class="fdz-home__logo" alt />
       <FdzVersion class="fdz-home__version" />
-      <FdzButton class="fdz-home__button" text="View App" type="button" />
+      <router-link class="fdz-home__button" :to="{ name: 'funds' }">
+        <FdzButton text="View App" type="button" />
+      </router-link>
       <FdzFooter />
     </div>
   </div>
