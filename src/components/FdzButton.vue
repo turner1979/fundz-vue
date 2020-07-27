@@ -1,16 +1,16 @@
 <template>
-  <div class="fdz-button">
-    <button type="type">{{ text }}</button>
+  <div class="fdz-button" v-if="options">
+    <button v-if="options.text && options.type" v-bind:type="options.type">{{ options.text }}</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { FdzButtonModel } from '../models/fdz-button.model'
 
 @Component
 export default class FdzButton extends Vue {
-  @Prop({ default: '' }) text!: string;
-  @Prop({ default: 'button' }) type!: string;
+  @Prop() options!: FdzButtonModel
 }
 </script>
 

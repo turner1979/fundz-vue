@@ -11,6 +11,9 @@
         modal content
       </FdzModal>
       <FdzLoading></FdzLoading>
+      <FdzMessage v-bind:options="{ text: ['Error Message'], type: 'error' }" />
+      <FdzMessage v-bind:options="{ text: ['Info Message'], type: 'info' }" />
+      <FdzMessage v-bind:options="{ text: ['Success Message'], type: 'success' }" />
       <div class="fdz-funds__grid">
         <FdzFundCard v-for="fund in funds" v-bind:fund="fund" :key="fund.id"></FdzFundCard>
       </div>
@@ -25,6 +28,7 @@ import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzHeader from '../components/FdzHeader.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzLoading from '../components/FdzLoading.vue'
+import FdzMessage from '../components/FdzMessage.vue'
 import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 
@@ -35,6 +39,7 @@ import FdzVersion from '../components/FdzVersion.vue'
     FdzHeader,
     FdzIcon,
     FdzLoading,
+    FdzMessage,
     FdzModal,
     FdzVersion
   }

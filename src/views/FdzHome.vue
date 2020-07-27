@@ -4,7 +4,7 @@
       <FdzLogo class="fdz-home__logo" alt />
       <FdzVersion class="fdz-home__version" />
       <router-link class="fdz-home__button" :to="{ name: 'funds' }">
-        <FdzButton text="View App" type="button" />
+        <FdzButton v-bind:options="buttonOptions" />
       </router-link>
       <FdzFooter />
     </div>
@@ -12,19 +12,23 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import FdzButton from '../components/FdzButton.vue'
 import FdzFooter from '../components/FdzFooter.vue'
 import FdzLogo from '../components/FdzLogo.vue'
 import FdzVersion from '../components/FdzVersion.vue'
+import { FdzButtonModel } from '../models/fdz-button.model'
 
-export default {
-  name: 'Home',
+@Component({
   components: {
     FdzButton,
     FdzFooter,
     FdzLogo,
     FdzVersion
   }
+})
+export default class FdzHome extends Vue {
+  buttonOptions: FdzButtonModel = { text: 'View App', type: 'button' };
 }
 </script>
 
