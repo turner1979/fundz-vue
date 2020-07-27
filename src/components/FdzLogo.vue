@@ -15,21 +15,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { FDZ_COLOURS } from '../config/fdz-colours'
 
 @Component
 export default class FdzLogo extends Vue {
   @Prop() alt!: boolean;
-
-  // TODO: colours should be in config file
-  colours = [
-    { name: 'redSalsa', colour: '#F94144' },
-    { name: 'orangeRed', colour: '#F3722C' },
-    { name: 'yellowOrange', colour: '#F8961E' },
-    { name: 'maizeCrayola', colour: '#F9C74F' },
-    { name: 'pistachio', colour: '#90BE6D' },
-    { name: 'zomp', colour: '#43AA8B' },
-    { name: 'queenBlue', colour: '#577590' }
-  ]
+  colours = FDZ_COLOURS;
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="fdz-home">
     <div class="fdz-home__content">
-      <FdzLogo class="fdz-home__logo" alt />
+      <FdzLogo class="fdz-home__logo" alt="true" />
       <FdzVersion class="fdz-home__version" />
       <router-link class="fdz-home__button" :to="{ name: 'funds' }">
         <FdzButton v-bind:options="buttonOptions" />
