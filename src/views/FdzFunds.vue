@@ -11,6 +11,9 @@
         modal content
       </FdzModal>
       <FdzLoading></FdzLoading>
+      <div class="fdz-funds__grid">
+        <FdzFundCard v-for="fund in funds" v-bind:fund="fund" :key="fund.id"></FdzFundCard>
+      </div>
     </FdzContentContainer>
   </div>
 </template>
@@ -18,6 +21,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
+import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzHeader from '../components/FdzHeader.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzLoading from '../components/FdzLoading.vue'
@@ -27,6 +31,7 @@ import FdzVersion from '../components/FdzVersion.vue'
 @Component({
   components: {
     FdzContentContainer,
+    FdzFundCard,
     FdzHeader,
     FdzIcon,
     FdzLoading,
@@ -36,6 +41,29 @@ import FdzVersion from '../components/FdzVersion.vue'
 })
 export default class FdzFunds extends Vue {
   addFundModalVisible = false;
+
+  funds: any = [
+    {
+      id: 'rdk0c4fi61',
+      colour: {
+        name: 'redSalsa',
+        colour: '#F94144'
+      },
+      current: 0,
+      name: 'Ferrari',
+      target: '90000'
+    },
+    {
+      id: 'wewweue',
+      colour: {
+        name: 'queenBlue',
+        colour: '#577590'
+      },
+      current: 20000,
+      name: 'Aston Martin',
+      target: '100000'
+    }
+  ];
 
   onBackClick (): void {
     console.log('TODO: route to home view')
