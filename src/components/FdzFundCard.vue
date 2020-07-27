@@ -5,12 +5,9 @@
         <p v-if="fund.name">
           <strong>{{ fund.name }}</strong>
         </p>
-        <p v-if="fund.target">
+        <p v-if="fund.target >= 0">
           <i class="fas fa-bullseye"></i>
-          <span>0</span>
-          <!--
-          <span>{{ fund.target | currency: 'GBP' : 'symbol' : '1.0-0' }}</span>
-          -->
+          <span>£{{ formattedTarget }}</span>
         </p>
       </div>
       <div class="fdz-fund-card__actions">
@@ -31,11 +28,16 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { FdzFundModel } from '../models/fdz-fund.model'
 
 @Component
 export default class FdzFundCard extends Vue {
-  @Prop() fund!: any;
+  @Prop() fund!: FdzFundModel;
   @Prop({ default: true }) showEdit!: boolean;
+
+  get formattedTarget () {
+    return this.fund.target.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
 
   onEditFund () {
     console.log('TODO: edit fund')
