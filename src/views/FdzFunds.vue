@@ -31,6 +31,7 @@ import FdzLoading from '../components/FdzLoading.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
+import { FdzFundModel } from '../models/fdz-fund.model'
 
 @Component({
   components: {
@@ -47,7 +48,7 @@ import FdzVersion from '../components/FdzVersion.vue'
 export default class FdzFunds extends Vue {
   addFundModalVisible = false;
 
-  funds: any = [
+  funds: FdzFundModel[] = [
     {
       id: 'rdk0c4fi61',
       colour: {
@@ -56,7 +57,7 @@ export default class FdzFunds extends Vue {
       },
       current: 0,
       name: 'Ferrari',
-      target: '90000'
+      target: 90000
     },
     {
       id: 'wewweue',
@@ -66,7 +67,7 @@ export default class FdzFunds extends Vue {
       },
       current: 20000,
       name: 'Aston Martin',
-      target: '100000'
+      target: 100000
     }
   ];
 
