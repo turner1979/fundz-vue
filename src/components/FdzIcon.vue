@@ -1,12 +1,15 @@
 <template>
   <div class="fdz-icon">
-    <i :class="iconClass"></i>
+    <i :class="iconClass" v-if="iconClass"></i>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  props: ['iconClass']
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component
+export default class FdzHeader extends Vue {
+  @Prop() iconClass!: string;
 }
 </script>
 

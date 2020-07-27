@@ -4,31 +4,42 @@
     <FdzContentContainer>
       <FdzVersion class="fdz-funds__version" />
       <div class="fdz-funds__controls">
-        <FdzIcon iconClass="fas fa-chevron-left" @click.native="onClick" />
-        <FdzIcon iconClass="fas fa-plus" />
+        <FdzIcon iconClass="fas fa-chevron-left" @click.native="onBackClick" />
+        <FdzIcon iconClass="fas fa-plus" @click.native="onSetAddFundModalVisible(true)" />
       </div>
+      <FdzModal v-if="addFundModalVisible" @modalClose="onSetAddFundModalVisible(false)">
+        modal content
+      </FdzModal>
     </FdzContentContainer>
   </div>
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzHeader from '../components/FdzHeader.vue'
 import FdzIcon from '../components/FdzIcon.vue'
+import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 
-export default {
-  name: 'Funds',
+@Component({
   components: {
     FdzContentContainer,
     FdzHeader,
     FdzIcon,
+    FdzModal,
     FdzVersion
-  },
-  methods: {
-    onClick: function () {
-      this.$router.push({ path: '/' })
-    }
+  }
+})
+export default class FdzFunds extends Vue {
+  addFundModalVisible = false;
+
+  onBackClick (): void {
+    console.log('TODO: route to home view')
+  }
+
+  onSetAddFundModalVisible (state: boolean) {
+    this.addFundModalVisible = state
   }
 }
 </script>

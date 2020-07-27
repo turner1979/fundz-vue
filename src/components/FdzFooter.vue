@@ -6,13 +6,12 @@
 </template>
 
 <script lang="ts">
-export default {
-  data () {
-    return {
-      startYear: 2020,
-      year: new Date().getFullYear()
-    }
-  }
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class FdzFooter extends Vue {
+  startYear = 2020
+  year = new Date().getFullYear()
 }
 </script>
 

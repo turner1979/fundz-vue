@@ -6,14 +6,11 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
-  data () {
-    return {
-      version: Vue.version
-    }
-  }
+@Component
+export default class FdzVersion extends Vue {
+  version = Vue.version;
 }
 </script>
 

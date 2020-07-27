@@ -13,24 +13,22 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    alt: Boolean
-  },
-  data () {
-    return {
-      colours: [
-        { name: 'redSalsa', colour: '#F94144' },
-        { name: 'orangeRed', colour: '#F3722C' },
-        { name: 'yellowOrange', colour: '#F8961E' },
-        { name: 'maizeCrayola', colour: '#F9C74F' },
-        { name: 'pistachio', colour: '#90BE6D' },
-        { name: 'zomp', colour: '#43AA8B' },
-        { name: 'queenBlue', colour: '#577590' }
-      ]
-    }
-  }
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component
+export default class FdzLogo extends Vue {
+  @Prop() alt!: boolean;
+
+  colours = [
+    { name: 'redSalsa', colour: '#F94144' },
+    { name: 'orangeRed', colour: '#F3722C' },
+    { name: 'yellowOrange', colour: '#F8961E' },
+    { name: 'maizeCrayola', colour: '#F9C74F' },
+    { name: 'pistachio', colour: '#90BE6D' },
+    { name: 'zomp', colour: '#43AA8B' },
+    { name: 'queenBlue', colour: '#577590' }
+  ]
 }
 </script>
 

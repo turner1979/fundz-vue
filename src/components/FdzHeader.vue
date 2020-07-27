@@ -5,12 +5,16 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import FdzLogo from '../components/FdzLogo.vue'
 
-export default {
+@Component({
   components: {
     FdzLogo
   }
+})
+export default class FdzHeader extends Vue {
+
 }
 </script>
 

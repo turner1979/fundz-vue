@@ -5,11 +5,12 @@
 </template>
 
 <script lang="ts">
-export default {
-  props: {
-    text: String,
-    type: String
-  }
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component
+export default class FdzButton extends Vue {
+  @Prop({ default: '' }) text!: string;
+  @Prop({ default: 'button' }) type!: string;
 }
 </script>
 
