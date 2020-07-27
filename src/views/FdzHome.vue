@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import FdzButton from '@/components/FdzButton.vue'
-import FdzFooter from '@/components/FdzFooter.vue'
-import FdzLogo from '@/components/FdzLogo.vue'
-import FdzVersion from '@/components/FdzVersion.vue'
+import FdzButton from '../components/FdzButton.vue'
+import FdzFooter from '../components/FdzFooter.vue'
+import FdzLogo from '../components/FdzLogo.vue'
+import FdzVersion from '../components/FdzVersion.vue'
 
 export default {
   name: 'Home',
