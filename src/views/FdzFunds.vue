@@ -10,6 +10,7 @@
       <FdzModal v-if="addFundModalVisible" @modalClose="onSetAddFundModalVisible(false)">
         modal content
       </FdzModal>
+      <FdzLoading></FdzLoading>
     </FdzContentContainer>
   </div>
 </template>
@@ -19,6 +20,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzHeader from '../components/FdzHeader.vue'
 import FdzIcon from '../components/FdzIcon.vue'
+import FdzLoading from '../components/FdzLoading.vue'
 import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 
@@ -27,6 +29,7 @@ import FdzVersion from '../components/FdzVersion.vue'
     FdzContentContainer,
     FdzHeader,
     FdzIcon,
+    FdzLoading,
     FdzModal,
     FdzVersion
   }

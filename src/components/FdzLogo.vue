@@ -20,6 +20,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class FdzLogo extends Vue {
   @Prop() alt!: boolean;
 
+  // TODO: colours should be in config file
   colours = [
     { name: 'redSalsa', colour: '#F94144' },
     { name: 'orangeRed', colour: '#F3722C' },

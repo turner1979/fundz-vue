@@ -1,6 +1,7 @@
 <template>
   <div class="fdz-loading">
-    loading
+    <i class="fas fa-2x fa-spinner fa-pulse"></i>
+    <p>loading</p>
   </div>
 </template>
 
@@ -16,4 +17,19 @@ export default class FdzLoading extends Vue {
 <style scoped lang="scss">
 @import '@/styles/fdz-styles';
 
+.fdz-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  i {
+    color: $colourMineShaft;
+  }
+
+  p {
+    @include fdz-font(14);
+  }
+
+}
 </style>
