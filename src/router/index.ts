@@ -24,9 +24,10 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "funds" */ '../views/FdzFunds.vue')
   },
   {
-    path: '/fund',
+    path: '/fund/:id',
     name: 'fund',
-    component: () => import(/* webpackChunkName: "fund" */ '../views/Fund.vue')
+    props: true,
+    component: () => import(/* webpackChunkName: "fund" */ '../views/FdzFund.vue')
   }
 ]
 

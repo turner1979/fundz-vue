@@ -15,7 +15,12 @@
       <FdzMessage v-bind:options="{ text: ['Info Message'], type: 'info' }" />
       <FdzMessage v-bind:options="{ text: ['Success Message'], type: 'success' }" />
       <div class="fdz-funds__grid">
-        <FdzFundCard v-for="fund in funds" v-bind:fund="fund" :key="fund.id">
+        <FdzFundCard
+          v-for="fund in funds"
+          v-bind:fund="fund"
+          :key="fund.id"
+          @edit-fund="onEditFund($event)"
+          @delete-fund="onDeleteFund($event)">
           <FdzFundProgress v-bind:fund="fund" />
         </FdzFundCard>
       </div>
@@ -25,6 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import VueRouter from 'vue-router'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
@@ -81,6 +87,14 @@ export default class FdzFunds extends Vue {
 
   onSetAddFundModalVisible (state: boolean) {
     this.addFundModalVisible = state
+  }
+
+  onEditFund (fund: FdzFundModel) {
+    this.$router.push({ name: 'fund', params: { id: fund.id } })
+  }
+
+  onDeleteFund (fund: FdzFundModel) {
+    console.log('delete', fund)
   }
 }
 </script>

@@ -41,11 +41,11 @@ export default class FdzFundCard extends Mixins(FdzNumberFormatterMixin) {
   }
 
   onEditFund () {
-    console.log('TODO: edit fund')
+    this.$emit('edit-fund', this.fund)
   }
 
   onDeleteFund () {
-    console.log('TODO: delete fund')
+    this.$emit('delete-fund', this.fund)
   }
 
   get cardColour () {
