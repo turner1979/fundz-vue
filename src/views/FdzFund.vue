@@ -8,7 +8,11 @@
       </div>
       <FdzFundCard v-bind:fund="fund" :show-edit="false">
         <FdzFundProgress v-bind:fund="fund" />
-        TODO: tabs
+        <FdzTabs v-bind:options="tabOptions" @tab-change="onTabChange($event)">
+
+          {{ tabOptions.activeIndex }}
+
+        </FdzTabs>
       </FdzFundCard>
     </FdzContentContainer>
   </div>
@@ -22,8 +26,10 @@ import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzHeader from '../components/FdzHeader.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
+import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 import { FdzFundModel } from '../models/fdz-fund.model'
+import { FdzTabsModel } from '../models/fdz-tabs.model'
 
 @Component({
   components: {
@@ -32,6 +38,7 @@ import { FdzFundModel } from '../models/fdz-fund.model'
     FdzHeader,
     FdzIcon,
     FdzFundProgress,
+    FdzTabs,
     FdzVersion
   }
 })
@@ -50,8 +57,24 @@ export default class FdzFund extends Vue {
     target: 90000
   }
 
+  tabOptions: FdzTabsModel = {
+    activeIndex: 0,
+    tabs: [
+      { iconClass: 'fas fa-info-circle', name: 'Overview' },
+      { iconClass: 'fas fa-pencil-alt', name: 'Edit' },
+      { iconClass: 'fas fa-coins', name: 'Add Contribution' }
+    ]
+  }
+
   onBackClick () {
     this.$router.push('/funds')
+  }
+
+  onTabChange (index: number): void {
+    this.tabOptions.activeIndex = index
+    // TODO
+    // this.editFundSuccessMessageVisible = false;
+    // this.addContributionSuccessMessageVisible = false;
   }
 }
 </script>
