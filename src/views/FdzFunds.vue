@@ -15,7 +15,9 @@
       <FdzMessage v-bind:options="{ text: ['Info Message'], type: 'info' }" />
       <FdzMessage v-bind:options="{ text: ['Success Message'], type: 'success' }" />
       <div class="fdz-funds__grid">
-        <FdzFundCard v-for="fund in funds" v-bind:fund="fund" :key="fund.id"></FdzFundCard>
+        <FdzFundCard v-for="fund in funds" v-bind:fund="fund" :key="fund.id">
+          <FdzFundProgress v-bind:fund="fund" />
+        </FdzFundCard>
       </div>
     </FdzContentContainer>
   </div>
@@ -25,6 +27,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
+import FdzFundProgress from '../components/FdzFundProgress.vue'
 import FdzHeader from '../components/FdzHeader.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzLoading from '../components/FdzLoading.vue'
@@ -37,6 +40,7 @@ import { FdzFundModel } from '../models/fdz-fund.model'
   components: {
     FdzContentContainer,
     FdzFundCard,
+    FdzFundProgress,
     FdzHeader,
     FdzIcon,
     FdzLoading,

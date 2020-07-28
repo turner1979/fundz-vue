@@ -27,16 +27,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 import { FdzFundModel } from '../models/fdz-fund.model'
+import FdzNumberFormatterMixin from '../mixins/fdz-number-formatter.mixin'
 
 @Component
-export default class FdzFundCard extends Vue {
+export default class FdzFundCard extends Mixins(FdzNumberFormatterMixin) {
   @Prop() fund!: FdzFundModel;
   @Prop({ default: true }) showEdit!: boolean;
 
   get formattedTarget () {
-    return this.fund.target.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return this.formatCurrency(this.fund.target)
   }
 
   onEditFund () {

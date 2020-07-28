@@ -1,19 +1,90 @@
 <template>
   <div class="fdz-fund-progress">
-    fund progress
+    <div class="fdz-fund-progress__top">
+      <FdzFundPill v-bind:options="{ text: 'Started' }" />
+      <p>{{ percentage }}%</p>
+    </div>
+    <div class="fdz-fund-progress__bar">
+      <div class="fdz-fund-progress__bar-current" :style="barStyles"></div>
+    </div>
+    <div class="fdz-fund-progress__bottom">
+      <p>£{{ formattedCurrent }}</p>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import FdzFundPill from '../components/FdzFundPill.vue'
+import { FdzFundModel } from '../models/fdz-fund.model'
+import FdzNumberFormatterMixin from '../mixins/fdz-number-formatter.mixin'
 
-@Component
-export default class FdzFundProgress extends Vue {
+@Component({
+  components: {
+    FdzFundPill
+  }
+})
+export default class FdzFundProgress extends Mixins(FdzNumberFormatterMixin) {
+  @Prop() fund!: FdzFundModel;
+  percentage = this.getPercentage();
 
+  get barStyles () {
+    return {
+      background: this.fund.colour.colour,
+      width: `${this.percentage}%`
+    }
+  }
+
+  getPercentage (): number {
+    return (100 / this.fund.target) * this.fund.current
+  }
+
+  get formattedCurrent () {
+    return this.formatCurrency(this.fund.current)
+  }
 }
 </script>
 
 <style scoped lang="scss">
 @import '@/styles/fdz-styles';
 
+$barHeight: 8px;
+
+.fdz-fund-progress {
+
+  p {
+    @include fdz-font(14);
+    margin: 0;
+  }
+
+  .fdz-fund-progress__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p:nth-child(2) {
+      @include fdz-font(20, $colourMineShaft, 600);
+    }
+  }
+
+  .fdz-fund-progress__bar {
+    position: relative;
+    background: $colourSilver;
+    border-radius: $barHeight / 2;
+    height: $barHeight;
+    margin: 8px 0;
+
+    .fdz-fund-progress__bar-current {
+      border-radius: $barHeight / 2;
+      height: $barHeight;
+    }
+  }
+
+  .fdz-fund-progress__bottom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+}
 </style>
