@@ -1,7 +1,7 @@
 <template>
   <div class="fdz-fund-progress">
     <div class="fdz-fund-progress__top">
-      <FdzFundPill v-bind:options="{ text: 'Started' }" />
+      <FdzFundPill v-bind:options="pillOptions" />
       <p>{{ percentage }}%</p>
     </div>
     <div class="fdz-fund-progress__bar">
@@ -16,8 +16,9 @@
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator'
 import FdzFundPill from '../components/FdzFundPill.vue'
-import { FdzFundModel } from '../models/fdz-fund.model'
 import FdzNumberFormatterMixin from '../mixins/fdz-number-formatter.mixin'
+import { FdzFundModel } from '../models/fdz-fund.model'
+import { FdzFundPillModel } from '../models/fdz-fund-pill.model'
 
 @Component({
   components: {
@@ -41,6 +42,12 @@ export default class FdzFundProgress extends Mixins(FdzNumberFormatterMixin) {
 
   get formattedCurrent () {
     return this.formatCurrency(this.fund.current)
+  }
+
+  get pillOptions (): FdzFundPillModel {
+    return {
+      text: (this.percentage === 100 ? 'Complete' : ((this.percentage > 0) ? 'In Progress' : 'Started'))
+    }
   }
 }
 </script>
