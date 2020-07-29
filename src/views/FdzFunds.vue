@@ -2,17 +2,18 @@
   <div class="fdz-funds">
     <FdzHeader />
     <FdzContentContainer>
+
       <FdzVersion class="fdz-funds__version" />
+
       <div class="fdz-funds__controls">
         <FdzIcon iconClass="fas fa-chevron-left" @click.native="onBackClick" />
         <FdzIcon iconClass="fas fa-plus" @click.native="onSetAddFundModalVisible(true)" />
       </div>
+
       <FdzModal v-if="addFundModalVisible" @modalClose="onSetAddFundModalVisible(false)">
         <FdzAddFundForm />
       </FdzModal>
-      <FdzMessage v-bind:options="{ text: ['Error Message'], type: 'error' }" />
-      <FdzMessage v-bind:options="{ text: ['Info Message'], type: 'info' }" />
-      <FdzMessage v-bind:options="{ text: ['Success Message'], type: 'success' }" />
+
       <FdzLoading v-if="loading"></FdzLoading>
       <div v-else class="fdz-funds__grid">
         <FdzFundCard
@@ -24,6 +25,9 @@
           <FdzFundProgress v-bind:fund="fund" />
         </FdzFundCard>
       </div>
+
+      <FdzFooter />
+
     </FdzContentContainer>
   </div>
 </template>
@@ -34,6 +38,7 @@ import VueRouter from 'vue-router'
 import { store } from '../store/store'
 import FdzAddFundForm from '../components/FdzAddFundForm.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
+import FdzFooter from '../components/FdzFooter.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
 import FdzHeader from '../components/FdzHeader.vue'
@@ -52,6 +57,7 @@ const fundService = new FdzFundService()
   components: {
     FdzAddFundForm,
     FdzContentContainer,
+    FdzFooter,
     FdzFundCard,
     FdzFundProgress,
     FdzHeader,
