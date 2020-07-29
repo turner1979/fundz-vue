@@ -10,11 +10,11 @@
       <FdzModal v-if="addFundModalVisible" @modalClose="onSetAddFundModalVisible(false)">
         <FdzAddFundForm />
       </FdzModal>
-      <FdzLoading></FdzLoading>
       <FdzMessage v-bind:options="{ text: ['Error Message'], type: 'error' }" />
       <FdzMessage v-bind:options="{ text: ['Info Message'], type: 'info' }" />
       <FdzMessage v-bind:options="{ text: ['Success Message'], type: 'success' }" />
-      <div class="fdz-funds__grid">
+      <FdzLoading v-if="loading"></FdzLoading>
+      <div v-else class="fdz-funds__grid">
         <FdzFundCard
           v-for="fund in funds"
           v-bind:fund="fund"
@@ -43,8 +43,10 @@ import FdzMessage from '../components/FdzMessage.vue'
 import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 import { FdzFundModel } from '../models/fdz-fund.model'
+import { FdzFundService } from '../services/fdz-fund.service'
 
 Vue.use(VueRouter)
+const fundService = new FdzFundService()
 
 @Component({
   components: {
@@ -64,6 +66,7 @@ export default class FdzFunds extends Vue {
   addFundModalVisible = false;
 
   funds: FdzFundModel[] = store.funds;
+  loading = false;
 
   onBackClick (): void {
     this.$router.push('/')
@@ -78,7 +81,13 @@ export default class FdzFunds extends Vue {
   }
 
   onDeleteFund (fund: FdzFundModel) {
-    console.log('delete', fund)
+    this.loading = true
+    fundService.deleteFund(fund).then(() => {
+      this.loading = false
+      this.funds = store.funds
+    }).catch(() => {
+      // Real world example would display error message in UI
+    })
   }
 }
 </script>
