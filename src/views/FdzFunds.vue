@@ -44,6 +44,8 @@ import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 import { FdzFundModel } from '../models/fdz-fund.model'
 
+Vue.use(VueRouter)
+
 @Component({
   components: {
     FdzAddFundForm,
@@ -64,7 +66,7 @@ export default class FdzFunds extends Vue {
   funds: FdzFundModel[] = store.funds;
 
   onBackClick (): void {
-    console.log('TODO: route to home view')
+    this.$router.push('/')
   }
 
   onSetAddFundModalVisible (state: boolean) {
