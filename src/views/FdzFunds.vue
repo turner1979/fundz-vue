@@ -8,7 +8,7 @@
         <FdzIcon iconClass="fas fa-plus" @click.native="onSetAddFundModalVisible(true)" />
       </div>
       <FdzModal v-if="addFundModalVisible" @modalClose="onSetAddFundModalVisible(false)">
-        modal content
+        <FdzAddFundForm />
       </FdzModal>
       <FdzLoading></FdzLoading>
       <FdzMessage v-bind:options="{ text: ['Error Message'], type: 'error' }" />
@@ -31,6 +31,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
+import FdzAddFundForm from '../components/FdzAddFundForm.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
@@ -44,6 +45,7 @@ import { FdzFundModel } from '../models/fdz-fund.model'
 
 @Component({
   components: {
+    FdzAddFundForm,
     FdzContentContainer,
     FdzFundCard,
     FdzFundProgress,
