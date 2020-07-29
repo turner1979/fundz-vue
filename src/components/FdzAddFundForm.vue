@@ -17,13 +17,15 @@
     <div class="fdz-add-fund-form__row">
       TODO: choose colour
     </div>
-    <FdzButton v-bind:options="submitButtonOptions" />
+    <FdzButton v-bind:options="submitButtonOptions" @click.native="addFund" />
   </form>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { store } from '../store/store'
+import { LsKeys } from '../enums/ls-keys.enum'
 import FdzButton from '../components/FdzButton.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import { FdzButtonModel } from '../models/fdz-button.model'
@@ -51,7 +53,20 @@ export default class FdzAddFundForm extends Vue {
     type: 'error'
   };
 
-  submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'submit' };
+  submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'button' };
+
+  addFund () {
+    store.funds.push({
+      id: Math.random().toString(36).substr(2),
+      colour: { name: 'redSalsa', colour: '#F94144' },
+      current: 0,
+      name: 'New Fund',
+      target: 1000
+    })
+    if (localStorage) {
+      localStorage.setItem(LsKeys.Funds, JSON.stringify(store.funds))
+    }
+  }
 }
 </script>
 

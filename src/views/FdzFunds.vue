@@ -31,6 +31,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
+import { store } from '../store/store'
 import FdzAddFundForm from '../components/FdzAddFundForm.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
@@ -60,28 +61,7 @@ import { FdzFundModel } from '../models/fdz-fund.model'
 export default class FdzFunds extends Vue {
   addFundModalVisible = false;
 
-  funds: FdzFundModel[] = [
-    {
-      id: 'rdk0c4fi61',
-      colour: {
-        name: 'redSalsa',
-        colour: '#F94144'
-      },
-      current: 0,
-      name: 'Ferrari',
-      target: 90000
-    },
-    {
-      id: 'wewweue',
-      colour: {
-        name: 'queenBlue',
-        colour: '#577590'
-      },
-      current: 20000,
-      name: 'Aston Martin',
-      target: 100000
-    }
-  ];
+  funds: FdzFundModel[] = store.funds;
 
   onBackClick (): void {
     console.log('TODO: route to home view')
