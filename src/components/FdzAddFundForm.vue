@@ -56,11 +56,12 @@ export default class FdzAddFundForm extends Vue {
   submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'button' };
 
   addFund () {
+    const token = Math.random().toString(36).substr(2)
     store.funds.push({
-      id: Math.random().toString(36).substr(2),
+      id: token,
       colour: { name: 'redSalsa', colour: '#F94144' },
       current: 0,
-      name: 'New Fund',
+      name: `New Fund ${token}`,
       target: 1000
     })
     if (localStorage) {

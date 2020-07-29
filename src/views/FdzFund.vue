@@ -21,6 +21,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
+import { FdzFundService } from '../services/fdz-fund.service'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzHeader from '../components/FdzHeader.vue'
@@ -30,6 +31,9 @@ import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 import { FdzFundModel } from '../models/fdz-fund.model'
 import { FdzTabsModel } from '../models/fdz-tabs.model'
+
+Vue.use(VueRouter)
+const fundService = new FdzFundService()
 
 @Component({
   components: {
@@ -45,17 +49,7 @@ import { FdzTabsModel } from '../models/fdz-tabs.model'
 export default class FdzFund extends Vue {
   @Prop() id!: string
 
-  // TODO: retrieve correct fund based on the id prop, fund data hardcoded for now
-  fund: FdzFundModel = {
-    id: 'rdk0c4fi61',
-    colour: {
-      name: 'redSalsa',
-      colour: '#F94144'
-    },
-    current: 0,
-    name: 'Ferrari',
-    target: 90000
-  }
+  fund: FdzFundModel = fundService.getFund(this.id);
 
   tabOptions: FdzTabsModel = {
     activeIndex: 0,

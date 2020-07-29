@@ -3,6 +3,10 @@ import { LsKeys } from '../enums/ls-keys.enum'
 import { FdzFundModel } from '../models/fdz-fund.model'
 
 export class FdzFundService {
+  getFund (id: string): FdzFundModel {
+    return store.funds.filter(f => f.id === id)[0]
+  }
+
   deleteFund (fund: FdzFundModel): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
