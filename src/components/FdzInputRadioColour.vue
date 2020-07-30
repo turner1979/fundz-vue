@@ -38,9 +38,6 @@ export default class FdzInputColour extends Vue {
 @import '@/styles/fdz-styles';
 
 .fdz-input-colour {
-  // display: flex;
-  // justify-content: flex-start;
-  // align-items: center;
 
   .fdz-input-colour__option {
     width: 32px;

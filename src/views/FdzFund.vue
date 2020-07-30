@@ -10,7 +10,37 @@
         <FdzFundProgress v-bind:fund="fund" />
         <FdzTabs v-bind:options="tabOptions" @tab-change="onTabChange($event)">
 
-          {{ tabOptions.activeIndex }}
+          <template v-if="tabOptions.activeIndex === 0">
+            <p><strong>Contributions</strong></p>
+            <template v-if="fund.contributions">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let contribution of fund.contributions">
+                    <td>{{ contribution.date }}</td>
+                    <td>{{ contribution.name }}</td>
+                    <td>£{{ contribution.amount }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </template>
+            <template v-else>
+              <FdzMessage v-bind:options="{ text: ['This fund has no contributions yet.'], type: 'info' }"></FdzMessage>
+            </template>
+          </template>
+
+          <template v-if="tabOptions.activeIndex === 1">
+            TODO: Edit Fund
+          </template>
+          <template v-if="tabOptions.activeIndex === 2">
+            TODO: Add Contribution
+          </template>
 
         </FdzTabs>
       </FdzFundCard>
@@ -27,6 +57,7 @@ import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzHeader from '../components/FdzHeader.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
+import FdzMessage from '../components/FdzMessage.vue'
 import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 import { FdzFundModel } from '../models/fdz-fund.model'
@@ -42,6 +73,7 @@ const fundService = new FdzFundService()
     FdzHeader,
     FdzIcon,
     FdzFundProgress,
+    FdzMessage,
     FdzTabs,
     FdzVersion
   }
@@ -76,6 +108,9 @@ export default class FdzFund extends Vue {
 <style scoped lang="scss">
 @import '@/styles/fdz-styles';
 
+$formInputColour: $colourGallery;
+$tableBorderColour: $colourGallery;
+
 .fdz-fund {
   height: 100%;
 
@@ -88,5 +123,100 @@ export default class FdzFund extends Vue {
     justify-content: space-between;
     margin-bottom: 16px;
   }
+
+  fdz-fund-progress + fdz-tabs {
+    ::ng-deep {
+      > div {
+        margin-top: 16px;
+      }
+    }
+  }
+
+  p {
+    @include fdz-font(14);
+
+    strong {
+      @include fdz-font(14, $colourMineShaft, 600);
+    }
+  }
+
+  a {
+    @include fdz-font(14);
+    text-decoration: underline;
+    display: inline-block;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  fdz-message + a {
+    margin-top: 16px;
+  }
+
+  table {
+    width: 100%;
+    text-align: left;
+    border: 1px solid darken($tableBorderColour, 10%);
+
+    thead {
+      background: $colourBoulder;
+      border: 1px solid $colourBoulder;
+      tr {
+        th {
+          @include fdz-font(14, $colourWhite, 600);
+          padding: 8px;
+          &:nth-child(3) {
+            text-align: right;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        background: lighten($tableBorderColour, 10%);
+        td {
+          @include fdz-font(14);
+          padding: 8px;
+          &:nth-child(1) {
+            width: 25%;
+          }
+          &:nth-child(2) {
+            width: 50%;
+          }
+          &:nth-child(3) {
+            width: 25%;
+            text-align: right;
+          }
+        }
+
+        &:nth-child(even) {
+          background: $tableBorderColour;
+        }
+      }
+
+    }
+  }
+
+  .fdz-fund__form {
+    width: 100%;
+    max-width: 500px;
+
+    .fdz-fund__form-row {
+      margin-bottom: 16px;
+      @include formInput();
+    }
+
+    fdz-message + fdz-button {
+      ::ng-deep {
+        > div {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+
 }
 </style>
