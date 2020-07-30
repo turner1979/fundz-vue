@@ -36,8 +36,44 @@
           </template>
 
           <template v-if="tabOptions.activeIndex === 1">
-            TODO: Edit Fund
+
+            <!-- TODO: create edit fund components -->
+            <template v-if="editFundSuccessMessageVisible">
+              <fdz-message v-bind:options="editFundSuccessMessageOptions"></fdz-message>
+              <a @click="onEditFundSuccessButton">Back To Form</a>
+            </template>
+            <template v-else>
+              <form class="fdz-fund__form" @submit.prevent="editFund" autocomplete="off">
+                <p><strong>Edit Fund</strong></p>
+                <div
+                  class="fdz-fund__form-row"
+                  :class="{ 'valid' : editFundFormGroup.controls.fundName.valid && editFundFormGroup.controls.fundName.dirty }">
+                  <input type="text" name="fundName" v-model="editFundFormGroup.controls.fundName.value" placeholder="fund.name" />
+                  <fdz-message
+                    v-if="editFundFormGroup.controls.fundName.invalid && editFundFormGroup.controls.fundName.dirty"
+                    v-bind:options="fundNameErrorMessageOptions"></fdz-message>
+                </div>
+                <div
+                  class="fdz-fund__form-row"
+                  :class="{ 'valid' : editFundFormGroup.controls.fundTarget.valid && editFundFormGroup.controls.fundTarget.dirty }">
+                  <input type="text" name="fundTarget" v-model="editFundFormGroup.controls.fundTarget.value" placeholder="fund.target" maxlength="10" />
+                  <fdz-message
+                    v-if="editFundFormGroup.controls.fundTarget.invalid && editFundFormGroup.controls.fundTarget.dirty"
+                    v-bind:options="fundTargetErrorMessageOptions"></fdz-message>
+                  <fdz-message v-if="editFundFormGroup.controls.fundTarget.invalid" v-bind:options="{
+                      text: ['Target must be greater or equal to fund contributions of £' + editFundFormGroup.controls.fundTarget],
+                      type: 'error'
+                    }"></fdz-message>
+                </div>
+                <div class="fdz-fund__form-row">
+                  TODO: add input radio colour component
+                </div>
+                <FdzButton v-bind:options="editSubmitButtonOptions" />
+              </form>
+            </template>
+
           </template>
+
           <template v-if="tabOptions.activeIndex === 2">
             TODO: Add Contribution
           </template>
@@ -51,7 +87,10 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
+import { FDZ_COLOURS } from '../config/fdz-colours'
+import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
 import { FdzFundService } from '../services/fdz-fund.service'
+import FdzButton from '../components/FdzButton.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzHeader from '../components/FdzHeader.vue'
@@ -60,14 +99,31 @@ import FdzFundProgress from '../components/FdzFundProgress.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
+import { FdzButtonModel } from '../models/fdz-button.model'
 import { FdzFundModel } from '../models/fdz-fund.model'
+import { FdzMessageModel } from '../models/fdz-message.model'
 import { FdzTabsModel } from '../models/fdz-tabs.model'
+import { FdzColour } from '../models/fdz-colour.model'
 
 Vue.use(VueRouter)
 const fundService = new FdzFundService()
 
+class NewFund {
+  @required({ message: 'Fund name is required' })
+  @minLength({ value: 2, message: 'Must be at least 2 characters long.' })
+  fundName!: string
+
+  @required({ message: 'Fund Target is required' })
+  @minLength({ value: 1, message: 'Must be at least 1 character long.' })
+  @digit({ message: 'Must be number (whole numbers only)' })
+  fundTarget!: string
+
+  @required() fundColour = FDZ_COLOURS[0]
+}
+
 @Component({
   components: {
+    FdzButton,
     FdzFundCard,
     FdzContentContainer,
     FdzHeader,
@@ -79,9 +135,21 @@ const fundService = new FdzFundService()
   }
 })
 export default class FdzFund extends Vue {
+  constructor () {
+    super()
+    this.editFundFormGroup = this.formBuilder.formGroup(NewFund) as IFormGroup<NewFund>
+  }
+
   @Prop() id!: string
 
-  fund: FdzFundModel = fundService.getFund(this.id);
+  editFundFormGroup: IFormGroup<NewFund>
+  colours: FdzColour[] = FDZ_COLOURS;
+  formBuilder: RxFormBuilder = new RxFormBuilder()
+  addContributionSuccessMessageVisible = false
+  editFundSuccessMessageOptions: FdzMessageModel = { text: ['Fund details edited successfully'], type: 'success' }
+  editFundSuccessMessageVisible = false
+  editSubmitButtonOptions: FdzButtonModel = { text: 'Add', type: 'submit' }
+  fund: FdzFundModel = fundService.getFund(this.id)
 
   tabOptions: FdzTabsModel = {
     activeIndex: 0,
@@ -92,15 +160,23 @@ export default class FdzFund extends Vue {
     ]
   }
 
+  mounted () {
+    this.editFundFormGroup.controls.fundName.setValue(this.fund.name)
+    this.editFundFormGroup.controls.fundTarget.setValue(this.fund.target)
+  }
+
   onBackClick () {
     this.$router.push('/funds')
   }
 
   onTabChange (index: number): void {
     this.tabOptions.activeIndex = index
-    // TODO
-    // this.editFundSuccessMessageVisible = false;
-    // this.addContributionSuccessMessageVisible = false;
+    this.editFundSuccessMessageVisible = false
+    this.addContributionSuccessMessageVisible = false
+  }
+
+  onEditFundSuccessButton (): void {
+    this.editFundSuccessMessageVisible = false
   }
 }
 </script>
