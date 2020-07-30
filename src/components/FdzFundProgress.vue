@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator'
 import FdzFundPill from '../components/FdzFundPill.vue'
-import FdzNumberFormatterMixin from '../mixins/fdz-number-formatter.mixin'
+import FdzNumberFormatterMixin from '../mixins/FdzNumberFormatter.mixin.vue'
 import { FdzFundModel } from '../models/fdz-fund.model'
 import { FdzFundPillModel } from '../models/fdz-fund-pill.model'
 

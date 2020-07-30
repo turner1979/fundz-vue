@@ -28,8 +28,8 @@
 
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator'
+import FdzNumberFormatterMixin from '../mixins/FdzNumberFormatter.mixin.vue'
 import { FdzFundModel } from '../models/fdz-fund.model'
-import FdzNumberFormatterMixin from '../mixins/fdz-number-formatter.mixin'
 
 @Component
 export default class FdzFundCard extends Mixins(FdzNumberFormatterMixin) {
