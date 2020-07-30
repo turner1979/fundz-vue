@@ -11,7 +11,7 @@
       </div>
 
       <FdzModal v-if="addFundModalVisible" @modalClose="onSetAddFundModalVisible(false)">
-        <FdzAddFundForm />
+        <FdzAddFundForm @fund-added="onSetAddFundModalVisible(false)" />
       </FdzModal>
 
       <FdzLoading v-if="loading"></FdzLoading>

@@ -5,7 +5,7 @@
         <p v-if="fund.name">
           <strong>{{ fund.name }}</strong>
         </p>
-        <p v-if="fund.target >= 0">
+        <p v-if="fund.target">
           <i class="fas fa-bullseye"></i>
           <span>£{{ formattedTarget }}</span>
         </p>

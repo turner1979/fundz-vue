@@ -1,102 +1,92 @@
 <template>
   <div class="fdz-add-fund-form">
-    <form autocomplete="off">
+    <form  @submit.prevent="addFund" autocomplete="off">
     <p><strong>Add New Fund</strong></p>
     <div class="fdz-add-fund-form__row">
-      <input type="text" name="fundName" placeholder="Name" maxlength="20" v-model="fundName" v-on:keyup="isValidFundName" />
-      <FdzMessage v-if="formErrors.fundName" v-bind:options="fundNameErrorMessageOptions" />
+      <input
+        type="text"
+        name="fundName"
+        placeholder="Name"
+        maxlength="20"
+        v-model="addFundFormGroup.props.fundName" />
+      <FdzMessage
+        v-if="addFundFormGroup.controls.fundName.errors && addFundFormGroup.controls.fundName.dirty"
+        v-bind:options="{ text: [addFundFormGroup.controls.fundName.errorMessage], type: 'error' }" />
     </div>
     <div class="fdz-add-fund-form__row">
       <input
         type="text"
         name="fundTarget"
         placeholder="Target"
-        maxlength="12"
-        v-model="fundTarget"
-        v-on:keyup="isValidFundTarget"
-        v-money="moneyConfig" />
-      <FdzMessage v-if="formErrors.fundTarget" v-bind:options="fundTargetErrorMessageOptions" />
+        maxlength="10"
+        v-model="addFundFormGroup.props.fundTarget" />
+      <FdzMessage
+        v-if="addFundFormGroup.controls.fundTarget.errors && addFundFormGroup.controls.fundTarget.dirty"
+        v-bind:options="{ text: [addFundFormGroup.controls.fundTarget.errorMessage], type: 'error' }" />
     </div>
     <div class="fdz-add-fund-form__row">
       TODO: choose colour
     </div>
-    <FdzButton v-bind:options="submitButtonOptions" @click.native="addFund" />
+    <FdzButton v-bind:options="submitButtonOptions" />
   </form>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { VMoney } from 'v-money'
 import FdzButton from '../components/FdzButton.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import { FdzButtonModel } from '../models/fdz-button.model'
-import { FdzMessageModel } from '../models/fdz-message.model'
 import { FdzFundService } from '../services/fdz-fund.service'
+import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
 
 const fundService = new FdzFundService()
+
+class NewFund {
+  @required({ message: 'Fund name is required' })
+  @minLength({ value: 2, message: 'Must be at least 2 characters long.' })
+  fundName!: string
+
+  @required({ message: 'Fund Target is required' })
+  @minLength({ value: 1, message: 'Must be at least 1 character long.' })
+  @digit({ message: 'Must be number (whole numbers only)' })
+  fundTarget!: string
+}
 
 @Component({
   components: {
     FdzButton,
     FdzMessage
-  },
-  directives: {
-    money: VMoney
   }
 })
 export default class FdzAddFundForm extends Vue {
-  formErrors = {
-    fundName: false,
-    fundTarget: false
-  };
+  constructor () {
+    super()
+    this.addFundFormGroup = this.formBuilder.formGroup(NewFund) as IFormGroup<NewFund>
+  }
 
-  fundName = '';
-  fundTarget = '';
-  moneyConfig = { thousands: ',', precision: 0 }
-
-  fundNameErrorMessageOptions: FdzMessageModel = {
-    text: ['Must be at least 2 characters long.'],
-    type: 'error'
-  };
-
-  fundTargetErrorMessageOptions: FdzMessageModel = {
-    text: ['Must be at least 1 character long.', 'Must be number (whole numbers only)'],
-    type: 'error'
-  };
-
-  submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'button' };
+  addFundFormGroup: IFormGroup<NewFund>;
+  formBuilder: RxFormBuilder = new RxFormBuilder();
+  submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'submit' };
 
   addFund (): void {
-    if (this.isFormValid()) {
-      const rawfundTarget = parseInt(this.fundTarget.split(',').join(''), 10)
+    if (this.addFundFormGroup.valid) {
+      // TODO: create token service
       const token = Math.random().toString(36).substr(2)
       fundService.addFund({
         id: token,
         colour: { name: 'redSalsa', colour: '#F94144' },
         current: 0,
-        name: this.fundName,
-        target: rawfundTarget
+        name: this.addFundFormGroup.value.fundName,
+        target: parseInt(this.addFundFormGroup.value.fundTarget, 10)
       }).then(() => {
-        // fund added
-        console.log('fund added')
+        this.addFundFormGroup.resetForm()
+        this.$emit('fund-added', true)
       }).catch(() => {
         // TODO: add error message to ui
         console.log('an error occurred')
       })
     }
-  }
-
-  isFormValid (): boolean {
-    return Object.keys(this.formErrors).every(k => this.formErrors[k] === false)
-  }
-
-  isValidFundName (): void {
-    this.formErrors.fundName = !(this.fundName.length >= 2 && this.fundName.length <= 20)
-  }
-
-  isValidFundTarget (): void {
-    this.formErrors.fundTarget = !(this.fundTarget.length >= 1 && this.fundTarget.length <= 13)
   }
 }
 </script>
