@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@rxweb/reactive-forms": "^1.0.0",
     "core-js": "^3.6.5",
     "normalize-scss": "^7.0.1",
     "v-money": "^0.8.1",
