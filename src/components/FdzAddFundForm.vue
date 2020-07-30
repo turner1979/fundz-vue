@@ -25,13 +25,14 @@
         v-bind:options="{ text: [addFundFormGroup.controls.fundTarget.errorMessage], type: 'error' }" />
     </div>
     <div class="fdz-add-fund-form__row">
-
-      <FdzInputRadioColour name="options" label="1" :value="selectedValue" @change="changeValue" />
-      <FdzInputRadioColour name="options" label="2" :value="selectedValue" @change="changeValue" />
-      <FdzInputRadioColour name="options" label="3" :value="selectedValue" @change="changeValue" />
-
-      {{ selectedValue }}
-
+      <div class="fdz-add-fund-colours">
+        <FdzInputRadioColour
+          v-for="colour in colours"
+          :key="colour.colour"
+          name="colour"
+          v-bind:colour="colour"
+          :value="addFundFormGroup.controls.fundColour.value" @change="changeColour" />
+      </div>
     </div>
     <FdzButton v-bind:options="submitButtonOptions" />
   </form>
@@ -60,6 +61,8 @@ class NewFund {
   @minLength({ value: 1, message: 'Must be at least 1 character long.' })
   @digit({ message: 'Must be number (whole numbers only)' })
   fundTarget!: string
+
+  @required() fundColour = FDZ_COLOURS[0]
 }
 
 @Component({
@@ -87,7 +90,7 @@ export default class FdzAddFundForm extends Vue {
       const token = Math.random().toString(36).substr(2)
       fundService.addFund({
         id: token,
-        colour: { name: 'redSalsa', colour: '#F94144' },
+        colour: this.addFundFormGroup.controls.fundColour.value,
         current: 0,
         name: this.addFundFormGroup.value.fundName,
         target: parseInt(this.addFundFormGroup.value.fundTarget, 10)
@@ -101,8 +104,8 @@ export default class FdzAddFundForm extends Vue {
     }
   }
 
-  changeValue (newValue: string) {
-    this.selectedValue = newValue
+  changeColour (newValue: FdzColour) {
+    this.addFundFormGroup.controls.fundColour.value = newValue
   }
 }
 </script>
@@ -121,6 +124,12 @@ export default class FdzAddFundForm extends Vue {
     margin-bottom: 16px;
     min-width: 250px;
     @include formInput();
+  }
+
+  .fdz-add-fund-colours {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   @include breakpoint('small') {

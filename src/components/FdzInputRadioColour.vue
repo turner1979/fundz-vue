@@ -1,11 +1,16 @@
 <template>
   <div class="fdz-input-colour">
 
-    <label class="radio">
-      <input type="radio" :value="label" :name="name" v-model="radioButtonValue">
-      <span>{{ label }}</span>
+    <label
+      class="fdz-input-colour__option"
+      :style="{ background: colour.colour }">
+        <i v-if="colour === value" class="fas fa-check"></i>
+        <input
+          type="radio"
+          :value="colour"
+          :name="name"
+          v-model="radioButtonValue">
     </label>
-
   </div>
 </template>
 
@@ -15,27 +20,27 @@ import { FdzColour } from '../models/fdz-colour.model'
 
 @Component
 export default class FdzInputColour extends Vue {
-  @Prop() label!: string;
+  @Prop() colour!: FdzColour;
   @Prop() name!: string;
-  @Prop() value!: string;
+  @Prop() value!: FdzColour;
 
-  get radioButtonValue() {
+  get radioButtonValue () {
     return this.value
   }
 
-  set radioButtonValue(label: string) {
-    this.$emit('change', label)
+  set radioButtonValue (value: FdzColour) {
+    this.$emit('change', value)
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import '@/styles/fdz-styles';
-/*
+
 .fdz-input-colour {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  // display: flex;
+  // justify-content: flex-start;
+  // align-items: center;
 
   .fdz-input-colour__option {
     width: 32px;
@@ -57,5 +62,4 @@ export default class FdzInputColour extends Vue {
   }
 
 }
-*/
 </style>
