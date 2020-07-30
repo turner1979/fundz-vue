@@ -25,7 +25,13 @@
         v-bind:options="{ text: [addFundFormGroup.controls.fundTarget.errorMessage], type: 'error' }" />
     </div>
     <div class="fdz-add-fund-form__row">
-      TODO: choose colour
+
+      <FdzInputRadioColour name="options" label="1" :value="selectedValue" @change="changeValue" />
+      <FdzInputRadioColour name="options" label="2" :value="selectedValue" @change="changeValue" />
+      <FdzInputRadioColour name="options" label="3" :value="selectedValue" @change="changeValue" />
+
+      {{ selectedValue }}
+
     </div>
     <FdzButton v-bind:options="submitButtonOptions" />
   </form>
@@ -34,11 +40,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { FDZ_COLOURS } from '../config/fdz-colours'
 import FdzButton from '../components/FdzButton.vue'
+import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import { FdzButtonModel } from '../models/fdz-button.model'
 import { FdzFundService } from '../services/fdz-fund.service'
 import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
+import { FdzColour } from '../models/fdz-colour.model'
 
 const fundService = new FdzFundService()
 
@@ -56,6 +65,7 @@ class NewFund {
 @Component({
   components: {
     FdzButton,
+    FdzInputRadioColour,
     FdzMessage
   }
 })
@@ -65,9 +75,11 @@ export default class FdzAddFundForm extends Vue {
     this.addFundFormGroup = this.formBuilder.formGroup(NewFund) as IFormGroup<NewFund>
   }
 
-  addFundFormGroup: IFormGroup<NewFund>;
-  formBuilder: RxFormBuilder = new RxFormBuilder();
-  submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'submit' };
+  addFundFormGroup: IFormGroup<NewFund>
+  colours: FdzColour[] = FDZ_COLOURS;
+  formBuilder: RxFormBuilder = new RxFormBuilder()
+  selectedValue = '1'
+  submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'submit' }
 
   addFund (): void {
     if (this.addFundFormGroup.valid) {
@@ -87,6 +99,10 @@ export default class FdzAddFundForm extends Vue {
         console.log('an error occurred')
       })
     }
+  }
+
+  changeValue (newValue: string) {
+    this.selectedValue = newValue
   }
 }
 </script>
