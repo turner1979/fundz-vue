@@ -96,7 +96,7 @@ export default class FdzAddFundForm extends Vue {
         this.addFundFormGroup.resetForm()
         this.$emit('fund-added', true)
       }).catch(() => {
-        // TODO: add error message to ui
+        // Real world app would display error message  in the UI if promise is rejected for example
         console.log('an error occurred')
       })
     }
