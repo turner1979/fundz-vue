@@ -87,9 +87,9 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
-import { FDZ_COLOURS } from '../config/fdz-colours'
+import { FDZ_COLOURS } from '../config'
 import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
-import { FdzFundService } from '../services/fdz-fund.service'
+import { FdzFundService } from '../services'
 import FdzButton from '../components/FdzButton.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'

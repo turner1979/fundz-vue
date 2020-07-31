@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { FDZ_COLOURS } from '../config/fdz-colours'
+import { FDZ_COLOURS } from '../config'
 
 @Component
 export default class FdzLogo extends Vue {

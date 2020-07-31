@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { LsKeys } from '@/enums/ls-keys.enum'
+import { LsKeys } from '@/enums'
 import { FdzFundModel } from '@/models'
 
 // Get funds data from localstorage

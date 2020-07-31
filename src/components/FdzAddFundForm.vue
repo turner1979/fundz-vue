@@ -42,11 +42,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
-import { FDZ_COLOURS } from '../config/fdz-colours'
+import { FDZ_COLOURS } from '../config'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
-import { FdzFundService } from '../services/fdz-fund.service'
+import { FdzFundService } from '../services'
 import { FdzButtonModel, FdzColourModel } from '../models'
 
 const fundService = new FdzFundService()
