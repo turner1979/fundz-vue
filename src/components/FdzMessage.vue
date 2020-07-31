@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { FdzMessageModel } from '../models/fdz-message.model'
+import { FdzMessageModel } from '../models'
 
 @Component
 export default class FdzMessage extends Vue {

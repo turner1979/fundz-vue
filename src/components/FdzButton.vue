@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { FdzButtonModel } from '../models/fdz-button.model'
+import { FdzButtonModel } from '../models'
 
 @Component
 export default class FdzButton extends Vue {

@@ -41,14 +41,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
 import { FDZ_COLOURS } from '../config/fdz-colours'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
-import { FdzButtonModel } from '../models/fdz-button.model'
 import { FdzFundService } from '../services/fdz-fund.service'
-import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
-import { FdzColour } from '../models/fdz-colour.model'
+import { FdzButtonModel, FdzColourModel } from '../models'
 
 const fundService = new FdzFundService()
 
@@ -62,7 +61,7 @@ class NewFund {
   @digit({ message: 'Must be number (whole numbers only)' })
   fundTarget!: string
 
-  @required() fundColour = FDZ_COLOURS[0]
+  @required() fundColour: FdzColourModel = FDZ_COLOURS[0]
 }
 
 @Component({
@@ -79,7 +78,7 @@ export default class FdzAddFundForm extends Vue {
   }
 
   addFundFormGroup: IFormGroup<NewFund>
-  colours: FdzColour[] = FDZ_COLOURS;
+  colours: FdzColourModel[] = FDZ_COLOURS;
   formBuilder: RxFormBuilder = new RxFormBuilder()
   selectedValue = '1'
   submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'submit' }
@@ -104,7 +103,7 @@ export default class FdzAddFundForm extends Vue {
     }
   }
 
-  changeColour (newValue: FdzColour) {
+  changeColour (newValue: FdzColourModel) {
     this.addFundFormGroup.controls.fundColour.value = newValue
   }
 }

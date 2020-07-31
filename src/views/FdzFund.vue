@@ -99,11 +99,14 @@ import FdzFundProgress from '../components/FdzFundProgress.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
-import { FdzButtonModel } from '../models/fdz-button.model'
-import { FdzFundModel } from '../models/fdz-fund.model'
-import { FdzMessageModel } from '../models/fdz-message.model'
-import { FdzTabsModel } from '../models/fdz-tabs.model'
-import { FdzColour } from '../models/fdz-colour.model'
+
+import {
+  FdzButtonModel,
+  FdzFundModel,
+  FdzMessageModel,
+  FdzTabsModel,
+  FdzColourModel
+} from '../models'
 
 Vue.use(VueRouter)
 const fundService = new FdzFundService()
@@ -143,7 +146,7 @@ export default class FdzFund extends Vue {
   @Prop() id!: string
 
   editFundFormGroup: IFormGroup<NewFund>
-  colours: FdzColour[] = FDZ_COLOURS;
+  colours: FdzColourModel[] = FDZ_COLOURS;
   formBuilder: RxFormBuilder = new RxFormBuilder()
   addContributionSuccessMessageVisible = false
   editFundSuccessMessageOptions: FdzMessageModel = { text: ['Fund details edited successfully'], type: 'success' }

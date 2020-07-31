@@ -1,6 +1,6 @@
-import { FdzColour } from '../models/fdz-colour.model'
+import { FdzColourModel } from '../models'
 
-export const FDZ_COLOURS: FdzColour[] = [
+export const FDZ_COLOURS: FdzColourModel[] = [
   { name: 'redSalsa', colour: '#F94144' },
   { name: 'orangeRed', colour: '#F3722C' },
   { name: 'yellowOrange', colour: '#F8961E' },

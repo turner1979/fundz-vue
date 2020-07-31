@@ -1,4 +1,4 @@
-export interface FdzColour {
+export interface FdzColourModel {
   name: string;
   colour: string;
 }

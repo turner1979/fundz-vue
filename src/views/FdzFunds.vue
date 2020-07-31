@@ -47,7 +47,7 @@ import FdzLoading from '../components/FdzLoading.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
-import { FdzFundModel } from '../models/fdz-fund.model'
+import { FdzFundModel } from '../models'
 import { FdzFundService } from '../services/fdz-fund.service'
 
 Vue.use(VueRouter)

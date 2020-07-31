@@ -17,7 +17,7 @@ import FdzButton from '../components/FdzButton.vue'
 import FdzFooter from '../components/FdzFooter.vue'
 import FdzLogo from '../components/FdzLogo.vue'
 import FdzVersion from '../components/FdzVersion.vue'
-import { FdzButtonModel } from '../models/fdz-button.model'
+import { FdzButtonModel } from '../models'
 
 @Component({
   components: {

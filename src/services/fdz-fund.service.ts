@@ -1,6 +1,6 @@
 import { store } from '../store/store'
 import { LsKeys } from '../enums/ls-keys.enum'
-import { FdzFundModel } from '../models/fdz-fund.model'
+import { FdzFundModel } from '../models'
 
 export class FdzFundService {
   getFund (id: string): FdzFundModel {

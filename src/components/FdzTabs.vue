@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { FdzTabsModel } from '../models/fdz-tabs.model'
+import { FdzTabsModel } from '../models'
 
 @Component
 export default class FdzTabs extends Vue {

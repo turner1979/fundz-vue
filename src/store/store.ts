@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { LsKeys } from '@/enums/ls-keys.enum'
-import { FdzFundModel } from '@/models/fdz-fund.model'
+import { FdzFundModel } from '@/models'
 
 // Get funds data from localstorage
 const funds: FdzFundModel[] = []

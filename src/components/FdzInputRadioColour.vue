@@ -16,19 +16,19 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { FdzColour } from '../models/fdz-colour.model'
+import { FdzColourModel } from '../models'
 
 @Component
 export default class FdzInputColour extends Vue {
-  @Prop() colour!: FdzColour;
+  @Prop() colour!: FdzColourModel;
   @Prop() name!: string;
-  @Prop() value!: FdzColour;
+  @Prop() value!: FdzColourModel;
 
   get radioButtonValue () {
     return this.value
   }
 
-  set radioButtonValue (value: FdzColour) {
+  set radioButtonValue (value: FdzColourModel) {
     this.$emit('change', value)
   }
 }

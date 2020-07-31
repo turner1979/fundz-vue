@@ -1,8 +1,8 @@
-import { FdzColour } from './fdz-colour.model';
+import { FdzColourModel } from './fdz-colour.model';
 
 export interface FdzFundModel {
   id: string;
-  colour: FdzColour;
+  colour: FdzColourModel;
   contributions?: Array<FdzFundContributionModel>;
   current: number;
   name: string;

@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { FdzFundPillModel } from '../models/fdz-fund-pill.model'
+import { FdzFundPillModel } from '../models'
 
 @Component
 export default class FdzFundPill extends Vue {
