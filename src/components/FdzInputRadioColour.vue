@@ -4,7 +4,7 @@
     <label
       class="fdz-input-colour__option"
       :style="{ background: colour.colour }">
-        <i v-if="colour === value" class="fas fa-check"></i>
+        <i v-if="colour.colour === value.colour" class="fas fa-check"></i>
         <input
           type="radio"
           :value="colour"
