@@ -6,12 +6,13 @@
       <div class="fdz-fund__controls">
         <FdzIcon iconClass="fas fa-chevron-left" @click.native="onBackClick" />
       </div>
-      <FdzFundCard v-bind:fund="fund" :show-edit="false">
+      <FdzFundCard v-bind:fund="fund" :show-edit="false" @delete-fund="onDeleteFund($event)">
         <FdzLoading v-if="loading" />
         <FdzFundProgress v-else v-bind:fund="fund" />
         <FdzTabs v-bind:options="tabOptions" @tab-change="onTabChange($event)">
 
           <template v-if="tabOptions.activeIndex === 0">
+            <!-- TODO: create overview component (contributions table) -->
             <p><strong>Contributions</strong></p>
             <template v-if="fund.contributions">
               <table>
@@ -41,7 +42,7 @@
           </template>
 
           <template v-if="tabOptions.activeIndex === 2">
-            TODO: Add Contribution
+            TODO: Add Contribution Form
           </template>
 
         </FdzTabs>
@@ -109,6 +110,14 @@ export default class FdzFund extends Vue {
 
   onTabChange (index: number): void {
     this.tabOptions.activeIndex = index
+  }
+
+  onDeleteFund (fund: FdzFundModel) {
+    fundService.deleteFund(fund).then(() => {
+      this.$router.push('/funds')
+    }).catch(() => {
+      // Real world example would display error message in UI
+    })
   }
 
   setLoadingState (state: boolean) {
