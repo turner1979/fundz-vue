@@ -1,13 +1,16 @@
-import { store } from '../store/store'
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
 import { LsKeys } from '../enums'
-import { FdzFundModel, FdzColourModel } from '../models'
+import { FdzColourModel, FdzFundModel } from '../models'
+import { store } from '../store/store'
 
-export class FdzFundService {
+@Component
+export default class FdzFund extends Vue {
   getFund (id: string): FdzFundModel {
     return store.funds.filter(f => f.id === id)[0]
   }
 
-  addFund (fund: FdzFundModel): Promise<void> {
+  addNewFund (fund: FdzFundModel): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
         store.funds.push(fund)
@@ -45,3 +48,4 @@ export class FdzFundService {
     }
   }
 }
+</script>

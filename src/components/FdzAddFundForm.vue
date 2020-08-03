@@ -46,11 +46,9 @@ import { FDZ_COLOURS } from '../config'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
+import FdzFundMixin from '../mixins/FdzFund.mixin.vue'
 import FdzTokenHelperMixin from '../mixins/FdzTokenHelper.mixin.vue'
 import { FdzButtonModel, FdzColourModel } from '../models'
-import { FdzFundService } from '../services'
-
-const fundService = new FdzFundService()
 
 class AddFundForm {
   @required({ message: 'Fund name is required' })
@@ -72,7 +70,7 @@ class AddFundForm {
     FdzMessage
   }
 })
-export default class FdzAddFundForm extends Mixins(FdzTokenHelperMixin) {
+export default class FdzAddFundForm extends Mixins(FdzFundMixin, FdzTokenHelperMixin) {
   constructor () {
     super()
     this.addFundFormGroup = this.formBuilder.formGroup(AddFundForm) as IFormGroup<AddFundForm>
@@ -86,7 +84,7 @@ export default class FdzAddFundForm extends Mixins(FdzTokenHelperMixin) {
 
   addFund (): void {
     if (this.addFundFormGroup.valid) {
-      fundService.addFund({
+      this.addNewFund({
         id: this.generateToken(),
         colour: this.addFundFormGroup.controls.fundColour.value,
         current: 0,

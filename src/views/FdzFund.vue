@@ -52,9 +52,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Mixins } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
-import { FdzFundService } from '../services'
 import FdzButton from '../components/FdzButton.vue'
 import FdzEditFundForm from '../components/FdzEditFundForm.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
@@ -66,6 +65,7 @@ import FdzFundProgress from '../components/FdzFundProgress.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
+import FdzFundMixin from '../mixins/FdzFund.mixin.vue'
 
 import {
   FdzFundModel,
@@ -73,7 +73,6 @@ import {
 } from '../models'
 
 Vue.use(VueRouter)
-const fundService = new FdzFundService()
 
 @Component({
   components: {
@@ -90,10 +89,10 @@ const fundService = new FdzFundService()
     FdzVersion
   }
 })
-export default class FdzFund extends Vue {
+export default class FdzFund extends Mixins(FdzFundMixin) {
   @Prop() id!: string
 
-  fund: FdzFundModel = fundService.getFund(this.id)
+  fund: FdzFundModel = this.getFund(this.id)
   loading = false
   tabOptions: FdzTabsModel = {
     activeIndex: 0,
@@ -113,7 +112,7 @@ export default class FdzFund extends Vue {
   }
 
   onDeleteFund (fund: FdzFundModel) {
-    fundService.deleteFund(fund).then(() => {
+    this.deleteFund(fund).then(() => {
       this.$router.push('/funds')
     }).catch(() => {
       // Real world example would display error message in UI

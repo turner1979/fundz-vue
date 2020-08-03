@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Mixins } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
 import { store } from '../store/store'
 import FdzAddFundForm from '../components/FdzAddFundForm.vue'
@@ -47,11 +47,10 @@ import FdzLoading from '../components/FdzLoading.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
+import FdzFundMixin from '../mixins/FdzFund.mixin.vue'
 import { FdzFundModel } from '../models'
-import { FdzFundService } from '../services'
 
 Vue.use(VueRouter)
-const fundService = new FdzFundService()
 
 @Component({
   components: {
@@ -68,7 +67,7 @@ const fundService = new FdzFundService()
     FdzVersion
   }
 })
-export default class FdzFunds extends Vue {
+export default class FdzFunds extends Mixins(FdzFundMixin) {
   addFundModalVisible = false;
 
   funds: FdzFundModel[] = store.funds;
@@ -88,7 +87,7 @@ export default class FdzFunds extends Vue {
 
   onDeleteFund (fund: FdzFundModel) {
     this.loading = true
-    fundService.deleteFund(fund).then(() => {
+    this.deleteFund(fund).then(() => {
       this.loading = false
       this.funds = store.funds
     }).catch(() => {

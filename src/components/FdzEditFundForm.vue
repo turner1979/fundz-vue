@@ -5,7 +5,7 @@
       <a @click="onEditFundSuccessBack">Back To Form</a>
     </template>
     <template v-else>
-      <form class="fdz-edit-fund-form__form" @submit.prevent="editFund" autocomplete="off">
+      <form class="fdz-edit-fund-form__form" @submit.prevent="onEditFund" autocomplete="off">
         <p><strong>Edit Fund</strong></p>
         <div
           class="fdz-edit-fund-form__form-row"
@@ -67,16 +67,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 import { IFormGroup, RxFormBuilder, minLength, required, digit, FormBuilderConfiguration } from '@rxweb/reactive-forms'
 import { FDZ_COLOURS } from '../config'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
+import FdzFund from '../mixins/FdzFund.mixin.vue'
 import { FdzButtonModel, FdzColourModel, FdzMessageModel, FdzFundModel } from '../models'
-import { FdzFundService } from '../services'
-
-const fundService = new FdzFundService()
 
 class EditFundForm {
   @required({ message: 'Fund name is required' })
@@ -98,7 +96,7 @@ class EditFundForm {
     FdzMessage
   }
 })
-export default class FdzEditFundForm extends Vue {
+export default class FdzEditFundForm extends Mixins(FdzFund) {
   @Prop() fund!: FdzFundModel
 
   colours: FdzColourModel[] = FDZ_COLOURS;
@@ -137,10 +135,10 @@ export default class FdzEditFundForm extends Vue {
     this.editFundFormGroup.updateValueAndValidity()
   }
 
-  editFund () {
+  onEditFund () {
     if (this.editFundFormGroup.valid) {
       this.$emit('editing-fund', true)
-      fundService.editFund(
+      this.editFund(
         this.fund,
         this.editFundFormGroup.controls.fundColour.value,
         this.editFundFormGroup.controls.fundName.value,
