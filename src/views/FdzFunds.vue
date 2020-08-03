@@ -47,7 +47,7 @@ import FdzLoading from '../components/FdzLoading.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzModal from '../components/FdzModal.vue'
 import FdzVersion from '../components/FdzVersion.vue'
-import FdzFundMixin from '../mixins/FdzFund.mixin.vue'
+import FdzFundMixin from '../mixins/FdzFundMixin.vue'
 import { FdzFundModel } from '../models'
 
 Vue.use(VueRouter)
@@ -98,7 +98,7 @@ export default class FdzFunds extends Mixins(FdzFundMixin) {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-funds {
   height: 100%;

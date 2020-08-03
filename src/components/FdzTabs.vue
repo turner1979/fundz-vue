@@ -35,7 +35,7 @@ export default class FdzTabs extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 $taBg: $colourGallery;
 $tabRadius: 4px;

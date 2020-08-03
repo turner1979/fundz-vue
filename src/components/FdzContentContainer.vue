@@ -16,7 +16,7 @@ export default class FdzContentContainer extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-content-container {
   padding: 76px 16px 32px 16px;

@@ -1,11 +1,11 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { LsKeys } from '../enums'
+import { FdzLsKeysEnum } from '../enums'
 import { FdzColourModel, FdzFundModel } from '../models'
 import { store } from '../store/store'
 
 @Component
-export default class FdzFund extends Vue {
+export default class FdzFundMixin extends Vue {
   getFund (id: string): FdzFundModel {
     return store.funds.filter(f => f.id === id)[0]
   }
@@ -44,7 +44,7 @@ export default class FdzFund extends Vue {
 
   saveFundsToLocalStorage (funds: FdzFundModel[]): void {
     if (localStorage) {
-      localStorage.setItem(LsKeys.Funds, JSON.stringify(funds))
+      localStorage.setItem(FdzLsKeysEnum.Funds, JSON.stringify(funds))
     }
   }
 }

@@ -1,1 +1,1 @@
-export { FDZ_COLOURS } from './fdz-colours'
+export { FDZ_COLOURS_CONFIG } from './FdzColoursConfig'

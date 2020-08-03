@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator'
 import FdzFundPill from '../components/FdzFundPill.vue'
-import FdzNumberFormatterMixin from '../mixins/FdzNumberFormatter.mixin.vue'
+import FdzNumberFormatterMixin from '../mixins/FdzNumberFormatterMixin.vue'
 import { FdzFundModel, FdzFundPillModel } from '../models'
 
 @Component({
@@ -56,7 +56,7 @@ export default class FdzFundProgress extends Mixins(FdzNumberFormatterMixin) {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 $barHeight: 8px;
 

@@ -8,13 +8,13 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
-export default class FdzHeader extends Vue {
+export default class FdzIcon extends Vue {
   @Prop() iconClass!: string;
 }
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 $iconColour: $colourWhite;
 $bg: $colourMineShaft;

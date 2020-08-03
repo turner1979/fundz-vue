@@ -69,11 +69,11 @@
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator'
 import { IFormGroup, RxFormBuilder, minLength, required, digit, FormBuilderConfiguration } from '@rxweb/reactive-forms'
-import { FDZ_COLOURS } from '../config'
+import { FDZ_COLOURS_CONFIG } from '../config'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
-import FdzFund from '../mixins/FdzFund.mixin.vue'
+import FdzFund from '../mixins/FdzFundMixin.vue'
 import { FdzButtonModel, FdzColourModel, FdzMessageModel, FdzFundModel } from '../models'
 
 class EditFundForm {
@@ -99,7 +99,7 @@ class EditFundForm {
 export default class FdzEditFundForm extends Mixins(FdzFund) {
   @Prop() fund!: FdzFundModel
 
-  colours: FdzColourModel[] = FDZ_COLOURS;
+  colours: FdzColourModel[] = FDZ_COLOURS_CONFIG;
   editFundFormGroup!: IFormGroup<EditFundForm>
   editFundSuccessMessageOptions: FdzMessageModel = { text: ['Fund details edited successfully'], type: 'success' }
   editFundSuccessMessageVisible = false
@@ -160,7 +160,7 @@ export default class FdzEditFundForm extends Mixins(FdzFund) {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-edit-fund-form {
 

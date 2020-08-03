@@ -42,12 +42,12 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
-import { FDZ_COLOURS } from '../config'
+import { FDZ_COLOURS_CONFIG } from '../config'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
-import FdzFundMixin from '../mixins/FdzFund.mixin.vue'
-import FdzTokenHelperMixin from '../mixins/FdzTokenHelper.mixin.vue'
+import FdzFundMixin from '../mixins/FdzFundMixin.vue'
+import FdzTokenHelperMixin from '../mixins/FdzTokenHelperMixin.vue'
 import { FdzButtonModel, FdzColourModel } from '../models'
 
 class AddFundForm {
@@ -60,7 +60,7 @@ class AddFundForm {
   @digit({ message: 'Must be number (whole numbers only)' })
   fundTarget!: string
 
-  @required() fundColour: FdzColourModel = FDZ_COLOURS[0]
+  @required() fundColour: FdzColourModel = FDZ_COLOURS_CONFIG[0]
 }
 
 @Component({
@@ -77,7 +77,7 @@ export default class FdzAddFundForm extends Mixins(FdzFundMixin, FdzTokenHelperM
   }
 
   addFundFormGroup: IFormGroup<AddFundForm>
-  colours: FdzColourModel[] = FDZ_COLOURS;
+  colours: FdzColourModel[] = FDZ_COLOURS_CONFIG;
   formBuilder: RxFormBuilder = new RxFormBuilder()
   selectedValue = '1'
   submitButtonOptions: FdzButtonModel = { text: 'Add', type: 'submit' }
@@ -107,7 +107,7 @@ export default class FdzAddFundForm extends Mixins(FdzFundMixin, FdzTokenHelperM
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-add-fund-form {
 

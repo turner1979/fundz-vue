@@ -65,7 +65,7 @@ import FdzFundProgress from '../components/FdzFundProgress.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
-import FdzFundMixin from '../mixins/FdzFund.mixin.vue'
+import FdzFundMixin from '../mixins/FdzFundMixin.vue'
 
 import {
   FdzFundModel,
@@ -126,7 +126,7 @@ export default class FdzFund extends Mixins(FdzFundMixin) {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 $formInputColour: $colourGallery;
 $tableBorderColour: $colourGallery;

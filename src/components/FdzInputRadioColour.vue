@@ -18,7 +18,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { FdzColourModel } from '../models'
 
 @Component
-export default class FdzInputColour extends Vue {
+export default class FdzInputRadioColour extends Vue {
   @Prop() colour!: FdzColourModel;
   @Prop() name!: string;
   @Prop() value!: FdzColourModel;
@@ -34,7 +34,7 @@ export default class FdzInputColour extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-input-colour {
 

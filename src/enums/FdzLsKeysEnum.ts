@@ -1,3 +1,3 @@
-export enum LsKeys {
+export enum FdzLsKeysEnum {
   Funds = 'fdz_vue_funds'
 }

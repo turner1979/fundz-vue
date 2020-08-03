@@ -15,7 +15,7 @@ export default class FdzLoading extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-loading {
   display: flex;

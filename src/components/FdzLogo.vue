@@ -15,17 +15,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { FDZ_COLOURS } from '../config'
+import { FDZ_COLOURS_CONFIG } from '../config'
 
 @Component
 export default class FdzLogo extends Vue {
   @Prop() alt!: boolean;
-  colours = FDZ_COLOURS;
+  colours = FDZ_COLOURS_CONFIG;
 }
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-logo {
   .fdz-logo__text {

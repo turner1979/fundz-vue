@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator'
-import FdzNumberFormatterMixin from '../mixins/FdzNumberFormatter.mixin.vue'
+import FdzNumberFormatterMixin from '../mixins/FdzNumberFormatterMixin.vue'
 import { FdzFundModel } from '../models'
 
 @Component
@@ -57,7 +57,7 @@ export default class FdzFundCard extends Mixins(FdzNumberFormatterMixin) {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/fdz-styles';
+@import '@/styles/FdzStyles';
 
 .fdz-fund-card {
   background: $colourWhite;
