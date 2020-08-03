@@ -7,7 +7,8 @@
         <FdzIcon iconClass="fas fa-chevron-left" @click.native="onBackClick" />
       </div>
       <FdzFundCard v-bind:fund="fund" :show-edit="false">
-        <FdzFundProgress v-bind:fund="fund" />
+        <FdzLoading v-if="loading" />
+        <FdzFundProgress v-else v-bind:fund="fund" />
         <FdzTabs v-bind:options="tabOptions" @tab-change="onTabChange($event)">
 
           <template v-if="tabOptions.activeIndex === 0">
@@ -36,7 +37,7 @@
           </template>
 
           <template v-if="tabOptions.activeIndex === 1">
-            <FdzEditFundForm v-bind:fund="fund" />
+            <FdzEditFundForm v-bind:fund="fund" @editing-fund="setLoadingState($event)" />
           </template>
 
           <template v-if="tabOptions.activeIndex === 2">
@@ -58,6 +59,7 @@ import FdzEditFundForm from '../components/FdzEditFundForm.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
 import FdzHeader from '../components/FdzHeader.vue'
+import FdzLoading from '../components/FdzLoading.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
 import FdzMessage from '../components/FdzMessage.vue'
@@ -81,6 +83,7 @@ const fundService = new FdzFundService()
     FdzHeader,
     FdzIcon,
     FdzFundProgress,
+    FdzLoading,
     FdzMessage,
     FdzTabs,
     FdzVersion
@@ -90,6 +93,7 @@ export default class FdzFund extends Vue {
   @Prop() id!: string
 
   fund: FdzFundModel = fundService.getFund(this.id)
+  loading = false
   tabOptions: FdzTabsModel = {
     activeIndex: 0,
     tabs: [
@@ -105,6 +109,10 @@ export default class FdzFund extends Vue {
 
   onTabChange (index: number): void {
     this.tabOptions.activeIndex = index
+  }
+
+  setLoadingState (state: boolean) {
+    this.loading = state
   }
 }
 </script>

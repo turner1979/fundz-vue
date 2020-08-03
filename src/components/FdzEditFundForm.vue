@@ -5,11 +5,7 @@
       <a @click="onEditFundSuccessBack">Back To Form</a>
     </template>
     <template v-else>
-      <template v-if="loading">
-        <FdzLoading />
-      </template>
-      <template v-else>
-        <form class="fdz-edit-fund-form__form" @submit.prevent="editFund" autocomplete="off">
+      <form class="fdz-edit-fund-form__form" @submit.prevent="editFund" autocomplete="off">
         <p><strong>Edit Fund</strong></p>
         <div
           class="fdz-edit-fund-form__form-row"
@@ -66,7 +62,6 @@
         </div>
         <FdzButton v-bind:options="editSubmitButtonOptions" />
       </form>
-      </template>
     </template>
   </div>
 </template>
@@ -77,7 +72,6 @@ import { IFormGroup, RxFormBuilder, minLength, required, digit, FormBuilderConfi
 import { FDZ_COLOURS } from '../config'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
-import FdzLoading from '../components/FdzLoading.vue'
 import FdzMessage from '../components/FdzMessage.vue'
 import { FdzButtonModel, FdzColourModel, FdzMessageModel, FdzFundModel } from '../models'
 import { FdzFundService } from '../services'
@@ -101,14 +95,12 @@ class EditFundForm {
   components: {
     FdzButton,
     FdzInputRadioColour,
-    FdzLoading,
     FdzMessage
   }
 })
 export default class FdzEditFundForm extends Vue {
   @Prop() fund!: FdzFundModel
 
-  loading = false
   colours: FdzColourModel[] = FDZ_COLOURS;
   editFundFormGroup!: IFormGroup<EditFundForm>
   editFundSuccessMessageOptions: FdzMessageModel = { text: ['Fund details edited successfully'], type: 'success' }
@@ -147,15 +139,15 @@ export default class FdzEditFundForm extends Vue {
 
   editFund () {
     if (this.editFundFormGroup.valid) {
-      this.loading = true
+      this.$emit('editing-fund', true)
       fundService.editFund(
         this.fund,
         this.editFundFormGroup.controls.fundColour.value,
         this.editFundFormGroup.controls.fundName.value,
         this.editFundFormGroup.controls.fundTarget.value
       ).then(() => {
-        this.loading = false
         this.editFundSuccessMessageVisible = true
+        this.$emit('editing-fund', false)
       }).catch(() => {
         // Real world app would display error message in the UI if promise is rejected
         console.log('an error occurred')
