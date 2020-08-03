@@ -52,7 +52,7 @@ import { FdzButtonModel, FdzColourModel } from '../models'
 const fundService = new FdzFundService()
 const tokenService = new FdzTokenService()
 
-class NewFund {
+class AddFundFormModel {
   @required({ message: 'Fund name is required' })
   @minLength({ value: 2, message: 'Must be at least 2 characters long.' })
   fundName!: string
@@ -75,10 +75,10 @@ class NewFund {
 export default class FdzAddFundForm extends Vue {
   constructor () {
     super()
-    this.addFundFormGroup = this.formBuilder.formGroup(NewFund) as IFormGroup<NewFund>
+    this.addFundFormGroup = this.formBuilder.formGroup(AddFundFormModel) as IFormGroup<AddFundFormModel>
   }
 
-  addFundFormGroup: IFormGroup<NewFund>
+  addFundFormGroup: IFormGroup<AddFundFormModel>
   colours: FdzColourModel[] = FDZ_COLOURS;
   formBuilder: RxFormBuilder = new RxFormBuilder()
   selectedValue = '1'
@@ -96,7 +96,7 @@ export default class FdzAddFundForm extends Vue {
         this.addFundFormGroup.resetForm()
         this.$emit('fund-added', true)
       }).catch(() => {
-        // Real world app would display error message  in the UI if promise is rejected for example
+        // Real world app would display error message in the UI if promise is rejected
         console.log('an error occurred')
       })
     }
