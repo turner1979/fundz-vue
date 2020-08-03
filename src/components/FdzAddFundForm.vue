@@ -40,17 +40,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Mixins } from 'vue-property-decorator'
 import { IFormGroup, RxFormBuilder, minLength, required, digit } from '@rxweb/reactive-forms'
 import { FDZ_COLOURS } from '../config'
 import FdzButton from '../components/FdzButton.vue'
 import FdzInputRadioColour from '../components/FdzInputRadioColour.vue'
 import FdzMessage from '../components/FdzMessage.vue'
-import { FdzFundService, FdzTokenService } from '../services'
+import FdzTokenHelperMixin from '../mixins/FdzTokenHelper.mixin.vue'
 import { FdzButtonModel, FdzColourModel } from '../models'
+import { FdzFundService } from '../services'
 
 const fundService = new FdzFundService()
-const tokenService = new FdzTokenService()
 
 class AddFundForm {
   @required({ message: 'Fund name is required' })
@@ -72,7 +72,7 @@ class AddFundForm {
     FdzMessage
   }
 })
-export default class FdzAddFundForm extends Vue {
+export default class FdzAddFundForm extends Mixins(FdzTokenHelperMixin) {
   constructor () {
     super()
     this.addFundFormGroup = this.formBuilder.formGroup(AddFundForm) as IFormGroup<AddFundForm>
@@ -87,7 +87,7 @@ export default class FdzAddFundForm extends Vue {
   addFund (): void {
     if (this.addFundFormGroup.valid) {
       fundService.addFund({
-        id: tokenService.generateToken(),
+        id: this.generateToken(),
         colour: this.addFundFormGroup.controls.fundColour.value,
         current: 0,
         name: this.addFundFormGroup.value.fundName,
