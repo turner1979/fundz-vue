@@ -13,23 +13,45 @@
         <p><strong>Edit Fund</strong></p>
         <div
           class="fdz-edit-fund-form__form-row"
-          :class="{ 'valid' : editFundFormGroup.controls.fundName.valid }">
+          :class="{ 'valid' : editFundFormGroup.controls.fundName.valid && editFundFormGroup.controls.fundName.dirty }">
           <input type="text" name="fundName" v-model="editFundFormGroup.controls.fundName.value" :placeholder="fund.name" />
-          <FdzMessage
-            v-if="editFundFormGroup.controls.fundName.invalid"
-            v-bind:options="fundNameErrorMessageOptions"></FdzMessage>
+          <template v-if="editFundFormGroup.controls.fundName.errors">
+            <template v-if="editFundFormGroup.controls.fundName.errors.required">
+              <FdzMessage v-bind:options="{
+                text: [editFundFormGroup.controls.fundName.errors.required.message],
+                type: 'error' }"></FdzMessage>
+            </template>
+            <template v-else-if="editFundFormGroup.controls.fundName.errors.minLength">
+              <FdzMessage v-bind:options="{
+                text: [editFundFormGroup.controls.fundName.errors.minLength.message],
+                type: 'error' }"></FdzMessage>
+            </template>
+          </template>
         </div>
         <div
           class="fdz-edit-fund-form__form-row"
-          :class="{ 'valid' : editFundFormGroup.controls.fundTarget.valid }">
+          :class="{ 'valid' : editFundFormGroup.controls.fundTarget.valid && editFundFormGroup.controls.fundTarget.dirty }">
           <input type="text" name="fundTarget" v-model="editFundFormGroup.controls.fundTarget.value" :placeholder="fund.target" maxlength="10" />
-          <fdz-message
-            v-if="editFundFormGroup.controls.fundTarget.invalid && editFundFormGroup.controls.fundTarget.dirty"
-            v-bind:options="fundTargetErrorMessageOptions"></fdz-message>
-          <FdzMessage v-if="editFundFormGroup.controls.fundTarget.invalid" v-bind:options="{
-              text: ['Target must be greater or equal to fund contributions of £' + fund.current ],
-              type: 'error'
-            }"></FdzMessage>
+          <template v-if="editFundFormGroup.controls.fundTarget.errors">
+            <template v-if="editFundFormGroup.controls.fundTarget.errors.required">
+              <FdzMessage v-bind:options="{
+                text: [editFundFormGroup.controls.fundTarget.errors.required.message],
+                type: 'error'
+              }"></FdzMessage>
+            </template>
+            <template v-else-if="editFundFormGroup.controls.fundTarget.errors.digit">
+              <FdzMessage v-bind:options="{
+                text: [editFundFormGroup.controls.fundTarget.errors.digit.message],
+                type: 'error'
+              }"></FdzMessage>
+            </template>
+            <template v-else-if="editFundFormGroup.controls.fundTarget.errors.minNumber">
+              <FdzMessage v-bind:options="{
+                text: [editFundFormGroup.controls.fundTarget.errors.minNumber.message],
+                type: 'error'
+              }"></FdzMessage>
+            </template>
+          </template>
         </div>
         <div class="fdz-edit-fund-form__form-row">
           <div class="fdz-edit-fund-colours">
@@ -94,14 +116,6 @@ export default class FdzEditFundForm extends Vue {
   editSubmitButtonOptions: FdzButtonModel = { text: 'Edit', type: 'submit' }
   formBuilder: RxFormBuilder = new RxFormBuilder()
   formBuilderConfig = new FormBuilderConfiguration()
-  fundNameErrorMessageOptions: FdzMessageModel = { text: ['Must be at least 1 characters long.'], type: 'error' };
-  fundTargetErrorMessageOptions: FdzMessageModel = {
-    text: [
-      'Must be at least 1 characters long.',
-      'Must be number (whole numbers only)'
-    ],
-    type: 'error'
-  }
 
   constructor () {
     super()
@@ -113,7 +127,10 @@ export default class FdzEditFundForm extends Vue {
       }
       this.formBuilderConfig.dynamicValidation = {
         fundTarget: {
-          minNumber: { value: this.fund.current }
+          minNumber: {
+            value: this.fund.current,
+            message: `Must be greater or equal to current fund contribution of £${this.fund.current}`
+          }
         }
       }
       this.editFundFormGroup = this.formBuilder.formGroup(
