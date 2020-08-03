@@ -2,7 +2,7 @@
   <div class="fdz-fund-progress">
     <div class="fdz-fund-progress__top">
       <FdzFundPill v-bind:options="pillOptions" />
-      <p>{{ percentage }}%</p>
+      <p>{{ formattedPercentage }}%</p>
     </div>
     <div class="fdz-fund-progress__bar">
       <div class="fdz-fund-progress__bar-current" :style="barStyles"></div>
@@ -41,6 +41,10 @@ export default class FdzFundProgress extends Mixins(FdzNumberFormatterMixin) {
 
   get formattedCurrent () {
     return this.formatCurrency(this.fund.current)
+  }
+
+  get formattedPercentage () {
+    return this.percentage.toFixed(2)
   }
 
   get pillOptions (): FdzFundPillModel {
