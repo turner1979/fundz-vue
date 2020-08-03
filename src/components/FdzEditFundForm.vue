@@ -27,7 +27,7 @@
             v-if="editFundFormGroup.controls.fundTarget.invalid && editFundFormGroup.controls.fundTarget.dirty"
             v-bind:options="fundTargetErrorMessageOptions"></fdz-message>
           <FdzMessage v-if="editFundFormGroup.controls.fundTarget.invalid" v-bind:options="{
-              text: ['Target must be greater or equal to fund contributions of £XXX'],
+              text: ['Target must be greater or equal to fund contributions of £' + fund.current ],
               type: 'error'
             }"></FdzMessage>
         </div>
@@ -62,7 +62,7 @@ import { FdzFundService } from '../services'
 
 const fundService = new FdzFundService()
 
-class EditFundFormModel {
+class EditFundForm {
   @required({ message: 'Fund name is required' })
   @minLength({ value: 2, message: 'Must be at least 2 characters long.' })
   fundName!: string
@@ -88,7 +88,7 @@ export default class FdzEditFundForm extends Vue {
 
   loading = false
   colours: FdzColourModel[] = FDZ_COLOURS;
-  editFundFormGroup!: IFormGroup<EditFundFormModel>
+  editFundFormGroup!: IFormGroup<EditFundForm>
   editFundSuccessMessageOptions: FdzMessageModel = { text: ['Fund details edited successfully'], type: 'success' }
   editFundSuccessMessageVisible = false
   editSubmitButtonOptions: FdzButtonModel = { text: 'Edit', type: 'submit' }
@@ -111,10 +111,15 @@ export default class FdzEditFundForm extends Vue {
         fundTarget: { defaultValue: this.fund.target },
         fundColour: { defaultValue: this.fund.colour }
       }
+      this.formBuilderConfig.dynamicValidation = {
+        fundTarget: {
+          minNumber: { value: this.fund.current }
+        }
+      }
       this.editFundFormGroup = this.formBuilder.formGroup(
-        EditFundFormModel,
+        EditFundForm,
         this.formBuilderConfig
-      ) as IFormGroup<EditFundFormModel>
+      ) as IFormGroup<EditFundForm>
     }
   }
 

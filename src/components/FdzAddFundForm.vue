@@ -52,7 +52,7 @@ import { FdzButtonModel, FdzColourModel } from '../models'
 const fundService = new FdzFundService()
 const tokenService = new FdzTokenService()
 
-class AddFundFormModel {
+class AddFundForm {
   @required({ message: 'Fund name is required' })
   @minLength({ value: 2, message: 'Must be at least 2 characters long.' })
   fundName!: string
@@ -75,10 +75,10 @@ class AddFundFormModel {
 export default class FdzAddFundForm extends Vue {
   constructor () {
     super()
-    this.addFundFormGroup = this.formBuilder.formGroup(AddFundFormModel) as IFormGroup<AddFundFormModel>
+    this.addFundFormGroup = this.formBuilder.formGroup(AddFundForm) as IFormGroup<AddFundForm>
   }
 
-  addFundFormGroup: IFormGroup<AddFundFormModel>
+  addFundFormGroup: IFormGroup<AddFundForm>
   colours: FdzColourModel[] = FDZ_COLOURS;
   formBuilder: RxFormBuilder = new RxFormBuilder()
   selectedValue = '1'
