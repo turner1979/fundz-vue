@@ -10,41 +10,15 @@
         <FdzLoading v-if="loading" />
         <FdzFundProgress v-else v-bind:fund="fund" />
         <FdzTabs v-bind:options="tabOptions" @tab-change="onTabChange($event)">
-
           <template v-if="tabOptions.activeIndex === 0">
-            <!-- TODO: create overview component (contributions table) -->
-            <p><strong>Contributions</strong></p>
-            <template v-if="fund.contributions">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let contribution of fund.contributions">
-                    <td>{{ contribution.date }}</td>
-                    <td>{{ contribution.name }}</td>
-                    <td>£{{ contribution.amount }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </template>
-            <template v-else>
-              <FdzMessage v-bind:options="{ text: ['This fund has no contributions yet.'], type: 'info' }"></FdzMessage>
-            </template>
+            <FdzContributionsTable v-bind:fund="fund" />
           </template>
-
           <template v-if="tabOptions.activeIndex === 1">
             <FdzEditFundForm v-bind:fund="fund" @editing-fund="setLoadingState($event)" />
           </template>
-
           <template v-if="tabOptions.activeIndex === 2">
             TODO: Add Contribution Form
           </template>
-
         </FdzTabs>
       </FdzFundCard>
     </FdzContentContainer>
@@ -55,6 +29,7 @@
 import { Component, Vue, Prop, Mixins } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
 import FdzButton from '../components/FdzButton.vue'
+import FdzContributionsTable from '../components/FdzContributionsTable.vue'
 import FdzEditFundForm from '../components/FdzEditFundForm.vue'
 import FdzFundCard from '../components/FdzFundCard.vue'
 import FdzContentContainer from '../components/FdzContentContainer.vue'
@@ -62,7 +37,6 @@ import FdzHeader from '../components/FdzHeader.vue'
 import FdzLoading from '../components/FdzLoading.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
-import FdzMessage from '../components/FdzMessage.vue'
 import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 import FdzFundMixin from '../mixins/FdzFundMixin.vue'
@@ -77,6 +51,7 @@ Vue.use(VueRouter)
 @Component({
   components: {
     FdzButton,
+    FdzContributionsTable,
     FdzEditFundForm,
     FdzFundCard,
     FdzContentContainer,
@@ -84,7 +59,6 @@ Vue.use(VueRouter)
     FdzIcon,
     FdzFundProgress,
     FdzLoading,
-    FdzMessage,
     FdzTabs,
     FdzVersion
   }
@@ -142,70 +116,6 @@ $tableBorderColour: $colourGallery;
     display: flex;
     justify-content: space-between;
     margin-bottom: 16px;
-  }
-
-  p {
-    @include fdz-font(14);
-
-    strong {
-      @include fdz-font(14, $colourMineShaft, 600);
-    }
-  }
-
-  a {
-    @include fdz-font(14);
-    text-decoration: underline;
-    display: inline-block;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  table {
-    width: 100%;
-    text-align: left;
-    border: 1px solid darken($tableBorderColour, 10%);
-
-    thead {
-      background: $colourBoulder;
-      border: 1px solid $colourBoulder;
-      tr {
-        th {
-          @include fdz-font(14, $colourWhite, 600);
-          padding: 8px;
-          &:nth-child(3) {
-            text-align: right;
-          }
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        background: lighten($tableBorderColour, 10%);
-        td {
-          @include fdz-font(14);
-          padding: 8px;
-          &:nth-child(1) {
-            width: 25%;
-          }
-          &:nth-child(2) {
-            width: 50%;
-          }
-          &:nth-child(3) {
-            width: 25%;
-            text-align: right;
-          }
-        }
-
-        &:nth-child(even) {
-          background: $tableBorderColour;
-        }
-      }
-
-    }
   }
 
 }
