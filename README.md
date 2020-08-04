@@ -30,7 +30,7 @@ The app demonstrates the use of the following:
 - Typescript
 - HTML
 
-## Other Versions
+## Versions
 
 - Angular - [ [App](http://www.scottturner.co.uk/examples/fundz/fundz-angular) | [Code](https://github.com/turner1979/fundz-angular) ]
 - AngularJS - (TODO)
