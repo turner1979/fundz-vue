@@ -37,6 +37,7 @@ The app demonstrates the use of the following:
 - Bit - (TODO)
 - React - (TODO)
 - Svelte - (TODO)
+- Vue - [ [App](http://www.scottturner.co.uk/examples/fundz/fundz-vue) ]
 
 ## Running the App Locally
 
