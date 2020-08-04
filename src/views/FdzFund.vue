@@ -17,7 +17,7 @@
             <FdzEditFundForm v-bind:fund="fund" @editing-fund="setLoadingState($event)" />
           </template>
           <template v-if="tabOptions.activeIndex === 2">
-            <FdzAddContributionForm v-bind:fund="fund" />
+            <FdzAddContributionForm v-bind:fund="fund" @adding-contribution="setLoadingState($event)" />
           </template>
         </FdzTabs>
       </FdzFundCard>

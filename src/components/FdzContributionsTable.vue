@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let contribution of fund.contributions">
+          <tr v-for="(contribution, index) in fund.contributions" :key="index">
             <td>{{ contribution.date }}</td>
             <td>{{ contribution.name }}</td>
             <td>£{{ contribution.amount }}</td>
@@ -69,6 +69,7 @@ table {
   width: 100%;
   text-align: left;
   border: 1px solid darken($tableBorderColour, 10%);
+  border-collapse: collapse;
 
   thead {
     background: $colourBoulder;

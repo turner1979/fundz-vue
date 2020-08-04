@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { FdzLsKeysEnum } from '../enums'
-import { FdzColourModel, FdzFundModel } from '../models'
+import { FdzColourModel, FdzFundModel, FdzFundContributionModel } from '../models'
 import { store } from '../store/store'
 
 @Component
@@ -42,10 +42,32 @@ export default class FdzFundMixin extends Vue {
     })
   }
 
+  addContribution (fund: FdzFundModel, contribution: FdzFundContributionModel): Promise<void> {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        if (!fund.contributions) {
+          fund.contributions = []
+        }
+        fund.contributions.push(contribution)
+        fund.current = this.getContributionsTotalValue(fund)
+        this.saveFundsToLocalStorage(store.funds)
+        resolve()
+      }, 500)
+    })
+  }
+
   saveFundsToLocalStorage (funds: FdzFundModel[]): void {
     if (localStorage) {
       localStorage.setItem(FdzLsKeysEnum.Funds, JSON.stringify(funds))
     }
+  }
+
+  getContributionsTotalValue (fund: FdzFundModel): number {
+    let totalContributions = 0
+    if (typeof fund.contributions !== 'undefined') {
+      fund.contributions.map((contribution) => { totalContributions += Number(contribution.amount) })
+    }
+    return totalContributions
   }
 }
 </script>

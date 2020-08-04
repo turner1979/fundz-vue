@@ -44,7 +44,7 @@ export default class FdzFundProgress extends Mixins(FdzNumberFormatterMixin) {
   }
 
   get formattedPercentage () {
-    return this.percentage.toFixed(2)
+    return this.percentage.toFixed(0)
   }
 
   get pillOptions (): FdzFundPillModel {
