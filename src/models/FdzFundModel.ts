@@ -1,4 +1,4 @@
-import { FdzColourModel } from './FdzColourModel';
+import { FdzColourModel } from './FdzColourModel'
 
 export interface FdzFundModel {
   id: string;
