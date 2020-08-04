@@ -18,12 +18,17 @@ Data is not persisted with a backend database, it's saved on local storage for s
 
 The app demonstrates the use of the following:
 
-TODO
+- Vue components
+- Vue Mixins
+- Vue Routing
+- Using Typescript Interfaces (models)
 
 ## Stack Used
 
 - Vue
 - SCSS
+- Typescript
+- HTML
 
 ## Other Versions
 
