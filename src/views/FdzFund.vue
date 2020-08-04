@@ -17,7 +17,7 @@
             <FdzEditFundForm v-bind:fund="fund" @editing-fund="setLoadingState($event)" />
           </template>
           <template v-if="tabOptions.activeIndex === 2">
-            <FdzAddContributionForm v-bind:fund="fund" @adding-contribution="setLoadingState($event)" />
+            <FdzAddContributionForm v-bind:fund="fund" @adding-contribution="setLoadingState($event)" @added-contrbution="onAddedContribution" />
           </template>
         </FdzTabs>
       </FdzFundCard>
@@ -97,6 +97,10 @@ export default class FdzFund extends Mixins(FdzFundMixin) {
 
   setLoadingState (state: boolean) {
     this.loading = state
+  }
+
+  onAddedContribution () {
+    this.tabOptions.activeIndex = 0
   }
 }
 </script>

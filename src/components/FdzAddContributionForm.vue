@@ -1,72 +1,66 @@
 <template>
   <div class="fdz-add-contribution-form">
-    <template v-if="addContributionSuccessMessageVisible">
-      <FdzMessage class="fdz-add-contribution-form__msg" v-bind:options="addContributionSuccessMessageOptions"></FdzMessage>
-      <a @click="onAddContributionSuccess">Back To Form</a>
-    </template>
-    <template v-else>
-      <form v-if="fund" class="fdz-add-contribution-form__form" @submit.prevent="onAddContribution" autocomplete="off">
-        <p><strong>Add Contribution</strong></p>
-        <div
-          class="fdz-add-contribution-form__form-row"
-          :class="{ 'valid' : addContributionFormGroup.controls.date.valid && addContributionFormGroup.controls.date.dirty }">
-          <input type="text" name="date" v-model="addContributionFormGroup.controls.date.value" placeholder="Date DD/MM/YYYY" maxlength="10" />
-          <template v-if="addContributionFormGroup.controls.date.errors && addContributionFormGroup.controls.date.dirty">
-            <template v-if="addContributionFormGroup.controls.date.errors.required">
-              <FdzMessage v-bind:options="{
-                text: [addContributionFormGroup.controls.date.errors.required.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
-            <template v-if="addContributionFormGroup.controls.date.errors.dateFormat">
-              <FdzMessage v-bind:options="{
-                text: [addContributionFormGroup.controls.date.errors.dateFormat.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
+    <form v-if="fund" class="fdz-add-contribution-form__form" @submit.prevent="onAddContribution" autocomplete="off">
+      <p><strong>Add Contribution</strong></p>
+      <div
+        class="fdz-add-contribution-form__form-row"
+        :class="{ 'valid' : addContributionFormGroup.controls.date.valid && addContributionFormGroup.controls.date.dirty }">
+        <input type="text" name="date" v-model="addContributionFormGroup.controls.date.value" placeholder="Date DD/MM/YYYY" maxlength="10" />
+        <template v-if="addContributionFormGroup.controls.date.errors && addContributionFormGroup.controls.date.dirty">
+          <template v-if="addContributionFormGroup.controls.date.errors.required">
+            <FdzMessage v-bind:options="{
+              text: [addContributionFormGroup.controls.date.errors.required.message],
+              type: 'error'
+            }"></FdzMessage>
           </template>
-        </div>
-        <div
-          class="fdz-add-contribution-form__form-row"
-          :class="{ 'valid' : addContributionFormGroup.controls.name.valid && addContributionFormGroup.controls.name.dirty }">
-          <input type="text" v-model="addContributionFormGroup.controls.name.value" placeholder="Name" maxlength="20" />
-          <template v-if="addContributionFormGroup.controls.name.errors && addContributionFormGroup.controls.name.dirty">
-            <template v-if="addContributionFormGroup.controls.name.errors.required">
-              <FdzMessage v-bind:options="{
-                text: [addContributionFormGroup.controls.name.errors.required.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
+          <template v-if="addContributionFormGroup.controls.date.errors.dateFormat">
+            <FdzMessage v-bind:options="{
+              text: [addContributionFormGroup.controls.date.errors.dateFormat.message],
+              type: 'error'
+            }"></FdzMessage>
           </template>
-        </div>
-        <div
-          class="fdz-add-contribution-form__form-row"
-          :class="{ 'valid' : addContributionFormGroup.controls.amount.valid && addContributionFormGroup.controls.amount.dirty }">
-          <input type="text" v-model="addContributionFormGroup.controls.amount.value" placeholder="Amount" maxlength="10" />
-          <template v-if="addContributionFormGroup.controls.amount.errors && addContributionFormGroup.controls.amount.dirty">
-            <template v-if="addContributionFormGroup.controls.amount.errors.required">
-              <FdzMessage v-bind:options="{
-                text: [addContributionFormGroup.controls.amount.errors.required.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
-            <template v-if="addContributionFormGroup.controls.amount.errors.digit">
-              <FdzMessage v-bind:options="{
-                text: [addContributionFormGroup.controls.amount.errors.digit.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
-            <template v-if="addContributionFormGroup.controls.amount.errors.maxNumber">
-              <FdzMessage v-bind:options="{
-                text: [addContributionFormGroup.controls.amount.errors.maxNumber.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
+        </template>
+      </div>
+      <div
+        class="fdz-add-contribution-form__form-row"
+        :class="{ 'valid' : addContributionFormGroup.controls.name.valid && addContributionFormGroup.controls.name.dirty }">
+        <input type="text" v-model="addContributionFormGroup.controls.name.value" placeholder="Name" maxlength="20" />
+        <template v-if="addContributionFormGroup.controls.name.errors && addContributionFormGroup.controls.name.dirty">
+          <template v-if="addContributionFormGroup.controls.name.errors.required">
+            <FdzMessage v-bind:options="{
+              text: [addContributionFormGroup.controls.name.errors.required.message],
+              type: 'error'
+            }"></FdzMessage>
           </template>
-        </div>
-        <FdzButton v-bind:options="{ text: 'Add', type: 'Submit' }" />
-      </form>
-    </template>
+        </template>
+      </div>
+      <div
+        class="fdz-add-contribution-form__form-row"
+        :class="{ 'valid' : addContributionFormGroup.controls.amount.valid && addContributionFormGroup.controls.amount.dirty }">
+        <input type="text" v-model="addContributionFormGroup.controls.amount.value" placeholder="Amount" maxlength="10" />
+        <template v-if="addContributionFormGroup.controls.amount.errors && addContributionFormGroup.controls.amount.dirty">
+          <template v-if="addContributionFormGroup.controls.amount.errors.required">
+            <FdzMessage v-bind:options="{
+              text: [addContributionFormGroup.controls.amount.errors.required.message],
+              type: 'error'
+            }"></FdzMessage>
+          </template>
+          <template v-if="addContributionFormGroup.controls.amount.errors.digit">
+            <FdzMessage v-bind:options="{
+              text: [addContributionFormGroup.controls.amount.errors.digit.message],
+              type: 'error'
+            }"></FdzMessage>
+          </template>
+          <template v-if="addContributionFormGroup.controls.amount.errors.maxNumber">
+            <FdzMessage v-bind:options="{
+              text: [addContributionFormGroup.controls.amount.errors.maxNumber.message],
+              type: 'error'
+            }"></FdzMessage>
+          </template>
+        </template>
+      </div>
+      <FdzButton v-bind:options="{ text: 'Add', type: 'Submit' }" />
+    </form>
   </div>
 </template>
 
@@ -139,6 +133,7 @@ export default class FdzAddFundContributionForm extends Mixins(FdzFundMixin) {
       }).then(() => {
         this.addContributionSuccessMessageVisible = true
         this.$emit('adding-contribution', false)
+        this.$emit('added-contrbution', true)
       }).catch(() => {
         // Real world app would display error message in the UI if promise is rejected
         console.log('an error occurred')
