@@ -16,6 +16,11 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "funds" */ '../views/FdzFunds.vue')
   },
   {
+    path: '/fund/',
+    name: 'fund-reroute',
+    redirect: '/funds'
+  },
+  {
     path: '/fund/:id',
     name: 'fund',
     props: true,

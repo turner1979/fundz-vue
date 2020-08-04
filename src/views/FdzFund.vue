@@ -6,21 +6,26 @@
       <div class="fdz-fund__controls">
         <FdzIcon iconClass="fas fa-chevron-left" @click.native="onBackClick" />
       </div>
-      <FdzFundCard v-bind:fund="fund" :show-edit="false" @delete-fund="onDeleteFund($event)">
-        <FdzLoading v-if="loading" />
-        <FdzFundProgress v-else v-bind:fund="fund" />
-        <FdzTabs v-bind:options="tabOptions" @tab-change="onTabChange($event)">
-          <template v-if="tabOptions.activeIndex === 0">
-            <FdzContributionsTable v-bind:fund="fund" />
-          </template>
-          <template v-if="tabOptions.activeIndex === 1">
-            <FdzEditFundForm v-bind:fund="fund" @editing-fund="setLoadingState($event)" @edited-fund="activateOverviewTab" />
-          </template>
-          <template v-if="tabOptions.activeIndex === 2">
-            <FdzAddContributionForm v-bind:fund="fund" @adding-contribution="setLoadingState($event)" @added-contribution="activateOverviewTab" />
-          </template>
-        </FdzTabs>
-      </FdzFundCard>
+      <template v-if="fund">
+        <FdzFundCard v-bind:fund="fund" :show-edit="false" @delete-fund="onDeleteFund($event)">
+          <FdzLoading v-if="loading" />
+          <FdzFundProgress v-else v-bind:fund="fund" />
+          <FdzTabs v-bind:options="tabOptions" @tab-change="onTabChange($event)">
+            <template v-if="tabOptions.activeIndex === 0">
+              <FdzContributionsTable v-bind:fund="fund" />
+            </template>
+            <template v-if="tabOptions.activeIndex === 1">
+              <FdzEditFundForm v-bind:fund="fund" @editing-fund="setLoadingState($event)" @edited-fund="activateOverviewTab" />
+            </template>
+            <template v-if="tabOptions.activeIndex === 2">
+              <FdzAddContributionForm v-bind:fund="fund" @adding-contribution="setLoadingState($event)" @added-contribution="activateOverviewTab" />
+            </template>
+          </FdzTabs>
+        </FdzFundCard>
+      </template>
+      <template v-else>
+        <FdzMessage v-bind:options="noFundMessageOptions" />
+      </template>
     </FdzContentContainer>
   </div>
 </template>
@@ -38,12 +43,14 @@ import FdzHeader from '../components/FdzHeader.vue'
 import FdzLoading from '../components/FdzLoading.vue'
 import FdzIcon from '../components/FdzIcon.vue'
 import FdzFundProgress from '../components/FdzFundProgress.vue'
+import FdzMessage from '../components/FdzMessage.vue'
 import FdzTabs from '../components/FdzTabs.vue'
 import FdzVersion from '../components/FdzVersion.vue'
 import FdzFundMixin from '../mixins/FdzFundMixin.vue'
 
 import {
   FdzFundModel,
+  FdzMessageModel,
   FdzTabsModel
 } from '../models'
 
@@ -61,6 +68,7 @@ Vue.use(VueRouter)
     FdzIcon,
     FdzFundProgress,
     FdzLoading,
+    FdzMessage,
     FdzTabs,
     FdzVersion
   }
@@ -68,7 +76,8 @@ Vue.use(VueRouter)
 export default class FdzFund extends Mixins(FdzFundMixin) {
   @Prop() id!: string
 
-  fund: FdzFundModel = this.getFund(this.id)
+  fund: FdzFundModel|null = null;
+  noFundMessageOptions: FdzMessageModel = { text: [`Fund with id ${this.id} does not exist`], type: 'error' }
   loading = false
   tabOptions: FdzTabsModel = {
     activeIndex: 0,
@@ -77,6 +86,10 @@ export default class FdzFund extends Mixins(FdzFundMixin) {
       { iconClass: 'fas fa-pencil-alt', name: 'Edit' },
       { iconClass: 'fas fa-coins', name: 'Add Contribution' }
     ]
+  }
+
+  mounted () {
+    this.fund = this.getFund(this.id)
   }
 
   onBackClick () {
