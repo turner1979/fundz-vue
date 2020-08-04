@@ -1,68 +1,62 @@
 <template>
   <div class="fdz-edit-fund-form">
-    <template v-if="editFundSuccessMessageVisible">
-      <fdz-message class="fdz-edit-fund-form__msg" v-bind:options="editFundSuccessMessageOptions"></fdz-message>
-      <a @click="onEditFundSuccessBack">Back To Form</a>
-    </template>
-    <template v-else>
-      <form class="fdz-edit-fund-form__form" @submit.prevent="onEditFund" autocomplete="off">
-        <p><strong>Edit Fund</strong></p>
-        <div
-          class="fdz-edit-fund-form__form-row"
-          :class="{ 'valid' : editFundFormGroup.controls.fundName.valid && editFundFormGroup.controls.fundName.dirty }">
-          <input type="text" name="fundName" v-model="editFundFormGroup.controls.fundName.value" :placeholder="fund.name" maxlength="20" />
-          <template v-if="editFundFormGroup.controls.fundName.errors">
-            <template v-if="editFundFormGroup.controls.fundName.errors.required">
-              <FdzMessage v-bind:options="{
-                text: [editFundFormGroup.controls.fundName.errors.required.message],
-                type: 'error' }"></FdzMessage>
-            </template>
-            <template v-else-if="editFundFormGroup.controls.fundName.errors.minLength">
-              <FdzMessage v-bind:options="{
-                text: [editFundFormGroup.controls.fundName.errors.minLength.message],
-                type: 'error' }"></FdzMessage>
-            </template>
+    <form class="fdz-edit-fund-form__form" @submit.prevent="onEditFund" autocomplete="off">
+      <p><strong>Edit Fund</strong></p>
+      <div
+        class="fdz-edit-fund-form__form-row"
+        :class="{ 'valid' : editFundFormGroup.controls.fundName.valid && editFundFormGroup.controls.fundName.dirty }">
+        <input type="text" name="fundName" v-model="editFundFormGroup.controls.fundName.value" :placeholder="fund.name" maxlength="20" />
+        <template v-if="editFundFormGroup.controls.fundName.errors">
+          <template v-if="editFundFormGroup.controls.fundName.errors.required">
+            <FdzMessage v-bind:options="{
+              text: [editFundFormGroup.controls.fundName.errors.required.message],
+              type: 'error' }"></FdzMessage>
           </template>
-        </div>
-        <div
-          class="fdz-edit-fund-form__form-row"
-          :class="{ 'valid' : editFundFormGroup.controls.fundTarget.valid && editFundFormGroup.controls.fundTarget.dirty }">
-          <input type="text" name="fundTarget" v-model="editFundFormGroup.controls.fundTarget.value" :placeholder="fund.target" maxlength="10" />
-          <template v-if="editFundFormGroup.controls.fundTarget.errors">
-            <template v-if="editFundFormGroup.controls.fundTarget.errors.required">
-              <FdzMessage v-bind:options="{
-                text: [editFundFormGroup.controls.fundTarget.errors.required.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
-            <template v-else-if="editFundFormGroup.controls.fundTarget.errors.digit">
-              <FdzMessage v-bind:options="{
-                text: [editFundFormGroup.controls.fundTarget.errors.digit.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
-            <template v-else-if="editFundFormGroup.controls.fundTarget.errors.minNumber">
-              <FdzMessage v-bind:options="{
-                text: [editFundFormGroup.controls.fundTarget.errors.minNumber.message],
-                type: 'error'
-              }"></FdzMessage>
-            </template>
+          <template v-else-if="editFundFormGroup.controls.fundName.errors.minLength">
+            <FdzMessage v-bind:options="{
+              text: [editFundFormGroup.controls.fundName.errors.minLength.message],
+              type: 'error' }"></FdzMessage>
           </template>
+        </template>
+      </div>
+      <div
+        class="fdz-edit-fund-form__form-row"
+        :class="{ 'valid' : editFundFormGroup.controls.fundTarget.valid && editFundFormGroup.controls.fundTarget.dirty }">
+        <input type="text" name="fundTarget" v-model="editFundFormGroup.controls.fundTarget.value" :placeholder="fund.target" maxlength="10" />
+        <template v-if="editFundFormGroup.controls.fundTarget.errors">
+          <template v-if="editFundFormGroup.controls.fundTarget.errors.required">
+            <FdzMessage v-bind:options="{
+              text: [editFundFormGroup.controls.fundTarget.errors.required.message],
+              type: 'error'
+            }"></FdzMessage>
+          </template>
+          <template v-else-if="editFundFormGroup.controls.fundTarget.errors.digit">
+            <FdzMessage v-bind:options="{
+              text: [editFundFormGroup.controls.fundTarget.errors.digit.message],
+              type: 'error'
+            }"></FdzMessage>
+          </template>
+          <template v-else-if="editFundFormGroup.controls.fundTarget.errors.minNumber">
+            <FdzMessage v-bind:options="{
+              text: [editFundFormGroup.controls.fundTarget.errors.minNumber.message],
+              type: 'error'
+            }"></FdzMessage>
+          </template>
+        </template>
+      </div>
+      <div class="fdz-edit-fund-form__form-row">
+        <div class="fdz-edit-fund-colours">
+          <FdzInputRadioColour
+            v-for="colour in colours"
+            :key="colour.colour"
+            name="colour"
+            v-bind:colour="colour"
+            :value="editFundFormGroup.controls.fundColour.value"
+            @change="changeColour" />
         </div>
-        <div class="fdz-edit-fund-form__form-row">
-          <div class="fdz-edit-fund-colours">
-            <FdzInputRadioColour
-              v-for="colour in colours"
-              :key="colour.colour"
-              name="colour"
-              v-bind:colour="colour"
-              :value="editFundFormGroup.controls.fundColour.value"
-              @change="changeColour" />
-          </div>
-        </div>
-        <FdzButton v-bind:options="editSubmitButtonOptions" />
-      </form>
-    </template>
+      </div>
+      <FdzButton v-bind:options="editSubmitButtonOptions" />
+    </form>
   </div>
 </template>
 
@@ -102,7 +96,6 @@ export default class FdzEditFundForm extends Mixins(FdzFund) {
   colours: FdzColourModel[] = FDZ_COLOURS_CONFIG;
   editFundFormGroup!: IFormGroup<EditFundForm>
   editFundSuccessMessageOptions: FdzMessageModel = { text: ['Fund details edited successfully'], type: 'success' }
-  editFundSuccessMessageVisible = false
   editSubmitButtonOptions: FdzButtonModel = { text: 'Edit', type: 'submit' }
   formBuilder: RxFormBuilder = new RxFormBuilder()
   formBuilderConfig = new FormBuilderConfiguration()
@@ -144,17 +137,13 @@ export default class FdzEditFundForm extends Mixins(FdzFund) {
         this.editFundFormGroup.controls.fundName.value,
         this.editFundFormGroup.controls.fundTarget.value
       ).then(() => {
-        this.editFundSuccessMessageVisible = true
         this.$emit('editing-fund', false)
+        this.$emit('edited-fund', false)
       }).catch(() => {
         // Real world app would display error message in the UI if promise is rejected
         console.log('an error occurred')
       })
     }
-  }
-
-  onEditFundSuccessBack () {
-    this.editFundSuccessMessageVisible = false
   }
 }
 </script>

@@ -133,7 +133,7 @@ export default class FdzAddFundContributionForm extends Mixins(FdzFundMixin) {
       }).then(() => {
         this.addContributionSuccessMessageVisible = true
         this.$emit('adding-contribution', false)
-        this.$emit('added-contrbution', true)
+        this.$emit('added-contribution', true)
       }).catch(() => {
         // Real world app would display error message in the UI if promise is rejected
         console.log('an error occurred')
