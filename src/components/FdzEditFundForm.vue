@@ -10,7 +10,7 @@
         <div
           class="fdz-edit-fund-form__form-row"
           :class="{ 'valid' : editFundFormGroup.controls.fundName.valid && editFundFormGroup.controls.fundName.dirty }">
-          <input type="text" name="fundName" v-model="editFundFormGroup.controls.fundName.value" :placeholder="fund.name" />
+          <input type="text" name="fundName" v-model="editFundFormGroup.controls.fundName.value" :placeholder="fund.name" maxlength="20" />
           <template v-if="editFundFormGroup.controls.fundName.errors">
             <template v-if="editFundFormGroup.controls.fundName.errors.required">
               <FdzMessage v-bind:options="{

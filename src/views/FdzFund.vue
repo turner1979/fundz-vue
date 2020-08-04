@@ -17,7 +17,7 @@
             <FdzEditFundForm v-bind:fund="fund" @editing-fund="setLoadingState($event)" />
           </template>
           <template v-if="tabOptions.activeIndex === 2">
-            TODO: Add Contribution Form
+            <FdzAddContributionForm v-bind:fund="fund" />
           </template>
         </FdzTabs>
       </FdzFundCard>
@@ -28,6 +28,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Mixins } from 'vue-property-decorator'
 import VueRouter from 'vue-router'
+import FdzAddContributionForm from '../components/FdzAddContributionForm.vue'
 import FdzButton from '../components/FdzButton.vue'
 import FdzContributionsTable from '../components/FdzContributionsTable.vue'
 import FdzEditFundForm from '../components/FdzEditFundForm.vue'
@@ -50,6 +51,7 @@ Vue.use(VueRouter)
 
 @Component({
   components: {
+    FdzAddContributionForm,
     FdzButton,
     FdzContributionsTable,
     FdzEditFundForm,
