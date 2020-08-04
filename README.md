@@ -33,12 +33,10 @@ The app demonstrates the use of the following:
 ## Other Versions
 
 - Angular - [ [App](http://www.scottturner.co.uk/examples/fundz/fundz-angular) | [Code](https://github.com/turner1979/fundz-angular) ]
-- AngularJS - (coming soon)
-- Angular + NgRx - (coming soon)
-- Bit - (coming soon)
-- React - (coming soon)
-- React + Redux - (coming soon)
-- Svelte - (coming soon)
+- AngularJS - (TODO)
+- Bit - (TODO)
+- React - (TODO)
+- Svelte - (TODO)
 
 ## Running the App Locally
 
