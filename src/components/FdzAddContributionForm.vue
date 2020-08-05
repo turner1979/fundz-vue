@@ -1,6 +1,9 @@
 <template>
-  <div class="fdz-add-contribution-form">
-    <form v-if="fund" class="fdz-add-contribution-form__form" @submit.prevent="onAddContribution" autocomplete="off">
+  <div class="fdz-add-contribution-form" v-if="fund">
+    <FdzMessage
+      v-if="fund.current === fund.target"
+      v-bind:options="{ text: ['Fund target of £' + fund.target +' has been reached'], type: 'success' }" />
+    <form v-else class="fdz-add-contribution-form__form" @submit.prevent="onAddContribution" autocomplete="off">
       <p><strong>Add Contribution</strong></p>
       <div
         class="fdz-add-contribution-form__form-row"
