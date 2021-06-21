@@ -1,7 +1,6 @@
 # Fundz App - Vue
 
-Fundz is a [demo app](http://www.scottturner.co.uk/examples/fundz/fundz-vue) which allows users to create one or more
-funding targets to track their progress towards them.
+Fundz is a demo app which allows users to create one or more funding targets to track their progress towards them.
 
 Users can perform the following tasks:
 
